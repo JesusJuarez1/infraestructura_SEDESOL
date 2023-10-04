@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+    <header class="navbar desktop-nav">
+        <div class="logo">
+            <img src="{% static 'img/logo.png' %}" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Calentadores Solares</a></li>
+                <li><a href="#">Obras Públicas</a></li>
+            </ul>
+        </nav>
+        <div class="user">
+            <div class="dropdown">
+                <button class="dropbtn" id="userDropdown">
+                    {{ user }}
+                    <span class="arrow">&#9660;</span>
+                </button>
+                <div class="dropdown-content" id="userDropdownContent">
+                    <a class="dropbtncont" href="#" id="adminButton" style="display: none;">Admin</a>
+                    <a class="dropbtncont" href="#" id="logoutButton" style="display: none;">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Contenido de la página -->
+    </main>
+
+    <div class="mobile-nav">
+        <span class="openbtn" onclick="openNav()">&#9776; Menú</span>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#">Inicio</a>
+            <a href="#">Calentadores Solares</a>
+            <a href="#">Obras Públicas</a>
+            <a href="#">Admin</a>
+            <a href="#">Cerrar Sesión</a>
+        </div>
+    </div>
+
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/dropdown.js' %}"></script>
+</body>
+</html>
