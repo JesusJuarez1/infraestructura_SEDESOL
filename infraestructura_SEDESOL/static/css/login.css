@@ -79,3 +79,26 @@ button {
     height: 100%;
     object-fit: cover;
 }
+
+@media (max-width: 768px) {
+    .login-container {
+        justify-content: center; /* Centra el contenido en la pantalla */
+    }
+
+    .login-content {
+        flex-direction: column; /* Cambia a dirección de columna */
+        align-items: center;
+        width: 100%; /* Ancho completo en dispositivos móviles */
+        padding: 20px;
+    }
+
+    .login-form {
+        width: 70%; /* Ancho ligeramente más amplio en dispositivos móviles */
+        border-radius: 0;
+        margin-top: 20px; /* Espacio superior */
+    }
+
+    .image-container {
+        display: none; /* Oculta la imagen en dispositivos móviles */
+    }
+}
