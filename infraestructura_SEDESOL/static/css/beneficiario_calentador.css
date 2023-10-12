@@ -1,0 +1,87 @@
+.container {
+    min-height: 85vh;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;
+    align-content: center;
+}
+
+/* Estilos generales para el formulario */
+.registro {
+    width: 60%;
+    height: auto;
+    margin: 0 auto;
+    background-color: #A71E1C;
+    padding: 20px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    /* Cambia el ancho a 80% para versiones móviles */
+    .registro {
+        width: 80%;
+    }
+}
+
+.registro h1 {
+    text-align: center;
+    color: #ffffff;
+    font-size: 3vh;
+}
+
+/* Estilos para los campos del formulario */
+.campos {
+    text-align: center;
+}
+
+label {
+    color: white;
+    text-align: left;
+    padding: 2px;
+    display: block;
+    width: 100%
+}
+
+.group {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.form-group {
+    flex: 1; /* Hace que cada campo ocupe el mismo ancho dentro del grupo */
+    margin: 1vw;
+    box-sizing: border-box;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 1.5vh;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.form-group input[type="number"] {
+    width: 100%;
+    padding: 1.5vh;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+/* Estilos para el botón de registro */
+.registro input[type="submit"] {
+    background-color: #cc574a;
+    color: #fff;
+    padding: 1vh 1vh;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: auto;
+    font-size: 2vh;
+}
