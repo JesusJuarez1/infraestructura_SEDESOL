@@ -1,5 +1,5 @@
 .container {
-    min-height: 85vh;
+    min-height: 90vh;
     display: flex;
     justify-content: center; /* Centra horizontalmente */
     align-items: center;
@@ -11,18 +11,11 @@
     width: 60%;
     height: auto;
     margin: 0 auto;
-    background-color: #A71E1C;
+    background-color: #a71e1c;
     padding: 20px 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     justify-content: center;
-}
-
-@media (max-width: 768px) {
-    /* Cambia el ancho a 80% para versiones móviles */
-    .registro {
-        width: 80%;
-    }
 }
 
 .registro h1 {
@@ -84,4 +77,20 @@ label {
     text-transform: uppercase;
     width: auto;
     font-size: 2vh;
+}
+
+@media (max-width: 768px) {
+    /* Cambia el ancho a 80% para versiones móviles */
+    .container {
+        height: 100vh;
+    }
+
+    .registro {
+        width: 80%;
+        padding: 10px 10px;
+    }
+
+    .group {
+        display: block;
+    }
 }

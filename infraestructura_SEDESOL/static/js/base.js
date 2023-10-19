@@ -9,6 +9,16 @@ function closeNav() {
 const btnToggle = document.querySelector('.toggle-btn');
 
 btnToggle.addEventListener('click', function () {
-  document.getElementById('sidebar').classList.toggle('active');
-  console.log(document.getElementById('sidebar'))
+  var sidebar = document.getElementById('sidebar');
+  sidebar.classList.toggle('active');
+  var menu = sidebar.querySelector('.menu');
+  if(menu){
+    if (menu.classList.contains('fa-bars')) {
+      menu.classList.remove('fa-bars');
+      menu.classList.add('fa-times');
+    } else {
+      menu.classList.remove('fa-times');
+      menu.classList.add('fa-bars');
+    }
+  }
 });

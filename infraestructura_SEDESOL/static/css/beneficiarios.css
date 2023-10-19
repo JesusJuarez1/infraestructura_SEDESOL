@@ -1,0 +1,88 @@
+.container {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.btn-div {
+    width: 70%;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.btn {
+    width: auto;
+    height: auto;
+    padding: 5px 15px;
+    font-size: 3vh;
+    color: white;
+    background-color: #a71e1c;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+/* Centra la tabla al medio */
+table {
+    width: 70%;
+    border-collapse: collapse;
+}
+
+/* Resalta el encabezado */
+th {
+    color: white;
+    background-color: #a71e1c;
+    font-size: 3vh;
+}
+
+/* Dibuja los bordes de las celdas y ajusta el relleno y alineación del texto */
+th, td {
+    border: 1px solid #cc574a;
+    padding: 8px;
+    text-align: center;
+}
+
+td {
+    font-size: 2.5vh;
+}
+
+.fa-eye {
+    color: #a71e1c;
+}
+
+@media (max-width: 768px) {
+    .container {
+        height: 100vh;
+    }
+
+    th {
+        font-size: 5.5vw;
+    }
+
+    td {
+        font-size: 5vw;
+    }
+
+    th, td {
+        padding: 3px;
+    }
+
+    .btn-div {
+        width: 90%;
+    }
+
+    table {
+        width: 90%;
+    }
+
+    .btn {
+        font-size: 5.5vw;
+    }
+
+    table .mobile-hidden {
+        display: none;
+    }
+}

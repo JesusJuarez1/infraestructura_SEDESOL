@@ -21,8 +21,8 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Calentadores Solares</a></li>
+                <li><a href="{% url 'home' %}">Inicio</a></li>
+                <li><a href="{% url 'beneficiarios' %}">Calentadores Solares</a></li>
                 <li><a href="#">Obras Públicas</a></li>
             </ul>
         </nav>
@@ -46,12 +46,12 @@
 
     <div id="sidebar">
         <div class="toggle-btn">
-          <i class="fa fa-bars" aria-hidden="true"></i>
+          <i class="fa fa-bars menu" aria-hidden="true"></i>
         </div>
         <ul>
             <li style="display: flex; align-items: center; justify-content: center;""><img src="{% static 'img/logosedesol2.png' %}" alt="Logo" class="logo-bar2"></li>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Calentadores Solares</a></li>
+            <li><a href="{% url 'home' %}">Inicio</a></li>
+            <li><a href="{% url 'beneficiarios' %}">Calentadores Solares</a></li>
             <li><a href="#">Obras Públicas</a></li>
             <li>
                 <div class="dropbtn-mobile" id="userDropdownMobile">

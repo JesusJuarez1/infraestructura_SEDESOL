@@ -5,10 +5,14 @@ body {
     padding: 0;
 }
 
+main {
+    width: 100%;
+    height: 100%;
+}
+
 /* Estilos para la barra de navegación */
 .desktop-nav {
-    background-color: #A71E1C;
-    padding: 10px 10px;
+    background-color: #a71e1c;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -59,7 +63,7 @@ body {
 }
 
 .dropbtn {
-    background-color: #A71E1C;
+    background-color: #a71e1c;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -70,7 +74,7 @@ body {
 
 .dropbtncont {
     display: block;
-    background-color: #A71E1C; /* Color de fondo del botón de usuario */
+    background-color: #a71e1c; /* Color de fondo del botón de usuario */
     color: white;
     padding: 5px 10px;
     border: none;
@@ -80,7 +84,7 @@ body {
 
 .dropdown-content {
     position: absolute;
-    background-color: #A71E1C;
+    background-color: #a71e1c;
     z-index: 1;
     float: right;
     right: 10px;
@@ -110,7 +114,7 @@ body {
 }
 
 #sidebar .dropbtn-mobile {
-    background-color: #A71E1C;
+    background-color: #a71e1c;
     color: white;
     border: none;
     cursor: pointer;
@@ -132,7 +136,7 @@ body {
 #sidebar .dropdown-content-mobile {
     right: 10px;
     position: absolute;
-    background-color: #A71E1C;
+    background-color: #a71e1c;
     z-index: 1;
     width: 100%; /* Ajusta el ancho del dropdown al 100% del sidebar */
     top: 100%; /* Coloca el dropdown debajo del botón */
@@ -176,7 +180,7 @@ body {
     position: fixed;
     width: 70%;
     height: 100%;
-    background: #A71E1C;
+    background: #a71e1c;
     left: -70%;
     transition: all 400ms linear;
 }
@@ -209,14 +213,25 @@ body {
     cursor: pointer !important;
     width: 10vw !important;
     height: 10vw !important;
-    border: 2px solid #A71E1C !important;
+    border: 2px solid #a71e1c !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     font-size: 9vw;
-    color: #A71E1C !important;
+    color: #a71e1c !important;
 }
 
-#sidebar .fa.fa-bars:hover {
-    color: #A71E1C !important;
+#sidebar .fa.fa-times {
+    position: absolute !important;
+    left: 110% !important;
+    top: 5% !important;
+    cursor: pointer !important;
+    width: 10vw !important;
+    height: 10vw !important;
+    border: 2px solid #a71e1c !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    font-size: 9vw;
+    color: #a71e1c !important;
 }

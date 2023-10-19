@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/detalle_beneficiario.css' %}">
+{% endblock head %}
+    
+
+{% block titulo %}
+    Beneficiario {{beneficiario.folio_mids}}
+{% endblock titulo %}
+
+{% block contenido %}
+    <div class="container">
+        <h1>Detalles del Beneficiario</h1>
+        <p><strong>Folio MIDS:</strong> {{ beneficiario.folio_mids }}</p>
+        <p><strong>Nombres:</strong> {{ beneficiario.nombres }}</p>
+        <p><strong>Apellido Paterno:</strong> {{ beneficiario.apellido_paterno }}</p>
+        <p><strong>Apellido Materno:</strong> {{ beneficiario.apellido_materno }}</p>
+        <p><strong>Municipio:</strong> {{ beneficiario.municipio }}</p>
+        <p><strong>Localidad:</strong> {{ beneficiario.localidad }}</p>
+        
+        <a href="#" class="btn">Completar Obra</a>
+    </div>
+{% endblock contenido %}

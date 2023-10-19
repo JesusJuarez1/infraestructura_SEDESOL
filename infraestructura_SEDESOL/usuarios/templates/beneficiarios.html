@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/beneficiarios.css' %}">
+{% endblock head %}
+    
+
+{% block titulo %}
+    Lista Beneficiarios
+{% endblock titulo %}
+
+{% block contenido %}
+    <div class="container">
+        <h1>Beneficiarios de calentadores solares</h1>
+        <div class="btn-div">
+            <a href="{% url 'registrar_beneficiario' %}" class="btn"><i class="fa fa-plus" aria-hidden="true"></i> Registrar Beneficiario</a>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Folio MIDS</th>
+                    <th>Nombre</th>
+                    <th>Municipio</th>
+                    <th class="mobile-hidden">Localidad</th>
+                    <th>Ver</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for beneficiario in beneficiarios %}
+                    <tr>
+                        <td>{{beneficiario.folio_mids}}</td>
+                        <td>{{ beneficiario }}</td>
+                        <td>{{ beneficiario.municipio }}</td>
+                        <td class="mobile-hidden">{{ beneficiario.localidad }}</td>
+                        <td><a href="{% url 'detalle_beneficiario' beneficiario.id %}"><i class="fa fa-eye" aria-hidden="true" ></i></a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination"  style="padding: 10px 10px;">
+            <span class="step-links">
+                {% if beneficiarios.has_previous %}
+                    <a href="?page={{ beneficiarios.previous_page_number }}" style="color: #a71e1c;">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
+        
+                <span class="current">
+                    Página {{ beneficiarios.number }} de {{ beneficiarios.paginator.num_pages }}.
+                </span>
+        
+                {% if beneficiarios.has_next %}
+                    <a href="?page={{ beneficiarios.next_page_number }}" style="color: #a71e1c;">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </a>
+                {% endif %}
+            </span>
+        </div>
+        
+    </div>
+{% endblock contenido %}

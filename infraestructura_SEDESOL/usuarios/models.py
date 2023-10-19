@@ -1,6 +1,6 @@
 from django.db import models
 
-class Beneficiario_Calentador(models.Model):
+class Beneficiarios_Calentadores(models.Model):
     id = models.AutoField(primary_key=True)
     folio_mids = models.CharField(max_length=255)
     apellido_paterno = models.CharField(max_length=100)
@@ -10,4 +10,7 @@ class Beneficiario_Calentador(models.Model):
     localidad = models.CharField(max_length=150)
     
     def __str__(self):
-        return f"{self.apellido_paterno}, {self.nombres}"
+        if self.apellido_materno:
+            return f"{self.nombres} {self.apellido_paterno} {self.apellido_materno}"
+        else:
+            return f"{self.nombres} {self.apellido_paterno}"

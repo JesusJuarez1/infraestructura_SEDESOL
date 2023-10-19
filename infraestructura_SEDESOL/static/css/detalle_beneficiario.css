@@ -1,0 +1,20 @@
+.container {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.btn {
+    width: auto;
+    height: auto;
+    padding: 5px 15px;
+    font-size: 3vh;
+    color: white;
+    background-color: #a71e1c;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 3px;
+}
