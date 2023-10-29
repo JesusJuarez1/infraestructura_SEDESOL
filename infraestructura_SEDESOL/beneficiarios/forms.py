@@ -1,9 +1,9 @@
 from django import forms
-from .models import Beneficiarios_Calentadores
+from .models import BeneficiarioCalentador
 
-class BeneficiariosCalentadoresForm(forms.ModelForm):
+class BeneficiarioCalentadorForm(forms.ModelForm):
     class Meta:
-        model = Beneficiarios_Calentadores
+        model = BeneficiarioCalentador
         fields = '__all__'
 
         widgets = {
