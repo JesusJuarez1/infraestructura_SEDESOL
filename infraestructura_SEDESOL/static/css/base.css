@@ -1,6 +1,6 @@
 /* Estilos generales */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -12,11 +12,12 @@ main {
 
 /* Estilos para la barra de navegación */
 .desktop-nav {
-    background-color: #a71e1c;
+    background-color: #fff; /* Cambia el fondo a blanco */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-height: 10vh;
+    max-height: 8vh;
 }
 
 .desktop-nav ul {
@@ -28,13 +29,12 @@ main {
 .desktop-nav li {
     display: inline;
     margin-right: 20px;
-    font-size: 3vh;
+    font-size: 2vh;
 }
 
 .desktop-nav a {
     text-decoration: none;
-    color: #fff;
-    font-weight: bold;
+    color: #000000;
 }
 
 /* Estilos para el contenedor de la imagen */
@@ -44,7 +44,7 @@ main {
 }
 
 .logo-bar {
-    max-height: 9vh;
+    max-height: 6vh;
     display: flex;
     align-items: center;
 }
@@ -69,7 +69,9 @@ main {
     border: none;
     cursor: pointer;
     font-weight: bold;
-    font-size: 2.5vh;
+    font-size: 2vh;
+    border-top-left-radius: 10px; /* Radio solo en la esquina superior izquierda */
+    border-bottom-left-radius: 10px; /* Radio solo en la esquina inferior izquierda */
 }
 
 .dropbtncont {
@@ -235,3 +237,13 @@ main {
     font-size: 9vw;
     color: #a71e1c !important;
 }
+
+.content-container {
+    background-color: #fff; /* Color de fondo */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    padding: 2%; /* Espaciado interior en porcentaje */
+    border-radius: 5px; /* Bordes redondeados  */
+    max-width: 90%; /* Ancho máximo del contenedor en porcentaje */
+    margin: 1% auto; /* Margen superior e inferior en porcentaje y margen automático para centrar el contenedor horizontalmente */
+}
+

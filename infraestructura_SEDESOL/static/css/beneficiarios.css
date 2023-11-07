@@ -1,9 +1,8 @@
 .container {
-    min-height: 90vh;
+    min-height: 50vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: center; /* Alinea los elementos en la parte superior */
     text-align: center;
 }
 
@@ -17,7 +16,7 @@
     width: auto;
     height: auto;
     padding: 5px 15px;
-    font-size: 3vh;
+    font-size: 2vh;
     color: white;
     background-color: #a71e1c;
     text-align: center;
@@ -25,45 +24,64 @@
     border-radius: 3px;
 }
 
-/* Centra la tabla al medio */
+/* Estilo de la tabla sin bordes y con margen entre celdas */
 table {
     width: 70%;
-    border-collapse: collapse;
+    border-collapse: separate; /* Separación de las celdas */
+    border-spacing: 0px 5px; /* Espacio entre celdas superior e inferior */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
 }
 
-/* Resalta el encabezado */
+/* Resalta el encabezado con fondo y texto */
 th {
     color: white;
     background-color: #a71e1c;
-    font-size: 3vh;
-}
-
-/* Dibuja los bordes de las celdas y ajusta el relleno y alineación del texto */
-th, td {
-    border: 1px solid #cc574a;
+    font-size: 2vh;
     padding: 8px;
     text-align: center;
 }
 
+/* Estiliza las celdas sin bordes */
 td {
-    font-size: 2.5vh;
+    font-size: 2vh;
+    padding: 8px;
+    border: none; /* Elimina los bordes */
+    text-align: center;
 }
 
+/* Ajusta el estilo del botón */
+.btn {
+    width: auto;
+    height: auto;
+    padding: 5px 15px;
+    font-size: 2vh;
+    color: white;
+    background-color: #a71e1c;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 3px;
+    display: inline-block; /* Para evitar que el botón se extienda al 100% de ancho */
+    border: none; /* Elimina el borde del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+/* Estilo al ícono fa-eye */
 .fa-eye {
-    color: #a71e1c;
+    color: #000000;
 }
 
+/* Aplica estilos en pantallas más pequeñas */
 @media (max-width: 768px) {
     .container {
         height: 100vh;
     }
 
     th {
-        font-size: 5.5vw;
+        font-size: 2vw;
     }
 
     td {
-        font-size: 5vw;
+        font-size: 2vw;
     }
 
     th, td {
@@ -79,10 +97,12 @@ td {
     }
 
     .btn {
-        font-size: 5.5vw;
+        font-size: 2vw;
     }
 
     table .mobile-hidden {
         display: none;
     }
 }
+
+
