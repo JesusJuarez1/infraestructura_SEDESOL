@@ -79,6 +79,14 @@ label {
     font-size: 2vh;
 }
 
+.registro select {
+    width: 100%;
+    padding: 1.5vh;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
 @media (max-width: 768px) {
     /* Cambia el ancho a 80% para versiones móviles */
     .container {

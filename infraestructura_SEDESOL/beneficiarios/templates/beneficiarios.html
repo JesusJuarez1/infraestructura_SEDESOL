@@ -12,6 +12,9 @@
 {% endblock titulo %}
 
 {% block contenido %}
+{% if status %}
+    <p>{{ status }}</p>
+{% endif %}
     <div class="container">
         <h1>Beneficiarios de calentadores solares</h1>
         <div class="btn-div">

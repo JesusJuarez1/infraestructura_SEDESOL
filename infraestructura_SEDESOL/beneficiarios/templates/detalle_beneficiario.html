@@ -20,6 +20,6 @@
         <p><strong>Municipio:</strong> {{ beneficiario.municipio }}</p>
         <p><strong>Localidad:</strong> {{ beneficiario.localidad }}</p>
         
-        <a href="#" class="btn">Completar Obra</a>
+        <a href="{% url 'completar_obra' beneficiario_id=beneficiario.id %}" class="btn">Completar Obra</a>
     </div>
 {% endblock contenido %}
