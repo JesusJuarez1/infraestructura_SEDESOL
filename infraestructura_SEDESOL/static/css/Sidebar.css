@@ -1,0 +1,293 @@
+
+.sb-sidenav-menu-heading span {
+  font-family: 'Montserrat';
+  font-size: 13px;
+  color: #585B5E;
+  font-weight: bold;
+}
+
+.sb-sidenav-menu-heading {
+  font-family: 'Montserrat';
+  font-size: 13px;
+  color: #585B5E;
+  font-weight: bold;
+}
+
+.fixed-top, .sb-nav-fixed #layoutSidenav #layoutSidenav_nav, .sb-nav-fixed .sb-topnav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+
+.sidebar-container {
+  margin-left: 0;
+  padding-left: 0;
+}
+.custom-link {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+}
+
+.custom-link button {
+  margin: 0;
+}
+
+
+.col-md-custom {
+    flex-basis: 14%;
+    max-width: 14%;
+}
+
+.col-md-custom2 {
+  flex-basis: 86.1%;
+  max-width: 86.1%;
+}
+
+.custom-link span {
+  flex-grow: 1;
+}
+
+
+a {
+  font-family: 'Montserrat';
+  font-size: 16px !important;
+}
+
+#layoutSidenav {
+  font-family: 'Montserrat';
+  display: flex;
+}
+
+#layoutSidenav #layoutSidenav_nav {
+  flex-basis: 225px;
+  flex-shrink: 0;
+  transition: transform 0.15s ease-in-out;
+  z-index: 1038;
+  transform: translateX(-225px);
+}
+
+#layoutSidenav #layoutSidenav_content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  flex-grow: 1;
+  min-height: calc(100vh - 56px);
+  margin-left: -225px;
+}
+
+@media (min-width: 992px) {
+  #layoutSidenav #layoutSidenav_nav {
+    transform: translateX(0);
+  }
+}
+
+@media (min-width: 992px) {
+  #layoutSidenav #layoutSidenav_content {
+    margin-left: 0;
+    transition: margin 0.15s ease-in-out;
+  }
+}
+
+.sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
+  width: 225px;
+  height: 100vh;
+  z-index: 1038;
+}
+
+.sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav {
+  padding-top: 56px;
+}
+
+.sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav .sb-sidenav-menu {
+  overflow-y: auto;
+}
+
+.sb-nav-fixed #layoutSidenav #layoutSidenav_content {
+  padding-left: 0px;
+  top: 56px;
+}
+
+.nav .nav-link .sb-nav-link-icon, .sb-sidenav-menu .nav-link .sb-nav-link-icon {
+  margin-right: 0.5rem;
+}
+
+.sb-sidenav {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-wrap: nowrap;
+}
+
+.sb-sidenav .sb-sidenav-menu {
+  flex-grow: 1;
+}
+
+.sb-sidenav .sb-sidenav-menu .nav {
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.sb-sidenav .sb-sidenav-menu .nav .sb-sidenav-menu-heading {
+  padding: 1.75rem 1rem 0.75rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.sb-sidenav .sb-sidenav-menu .nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.sb-sidenav .sb-sidenav-menu .nav .nav-link {
+  display: flex;
+  align-items: center;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  position: relative;
+  color: #b3b3b3;
+}
+
+.sb-sidenav .sb-sidenav-menu .nav .nav-link .sb-nav-link-icon {
+  font-size: 0.9rem;
+}
+
+.sb-sidenav .sb-sidenav-menu .nav .nav-link .sb-sidenav-collapse-arrow {
+  display: inline-block;
+  margin-left: auto;
+  transition: transform 0.15s ease;
+}
+
+.sb-sidenav .sb-sidenav-menu .nav .nav-link.collapsed .sb-sidenav-collapse-arrow {
+  transform: rotate(-90deg);
+}
+
+.sb-sidenav .sb-sidenav-menu .nav .sb-sidenav-menu-nested {
+  margin-left: 1.5rem;
+  flex-direction: column;
+}
+
+.sb-sidenav .sb-sidenav-footer {
+  padding: 0.75rem;
+  flex-shrink: 0;
+}
+
+.sb-sidenav-dark {
+  background-color: #A71E1C;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
+  color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav-link {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-sidenav-collapse-arrow {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
+  color: #fff;
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav div .nav-link.active {
+  color: #fff;
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
+  color: #fff;
+}
+
+.sb-sidenav-dark .sb-sidenav-footer {
+  background-color: #A71E1C;
+}
+
+h8{
+  color: #F7B9B7;
+  font-family: 'Montserrat';
+}
+span{
+  color: white;
+  font-family: 'Montserrat';
+}
+.btn{
+  color: white;
+  font-family: 'Montserrat';
+  padding: 8px;
+  background-color: #CC574A;
+  border-radius: 8px;
+}
+.btn:hover{
+  background-color: #FCE2E6;
+  color: black;
+}
+.card-default {
+  width: 500px;
+  height: 400px;
+}
+
+
+text{
+  font: 150px;
+}
+
+.card-img-container {
+  height: 0;
+  padding-bottom: 75%; /* Establece una proporción deseada (por ejemplo, 4:3) */
+  position: relative;
+  overflow: hidden;
+}
+
+.card-img-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+  #layoutSidenav {
+    display: none;
+  }
+}
+
+
+.card-small {
+  max-width: 200px; /* Ancho máximo de la tarjeta */
+  height: auto; /* Altura automática según el contenido */
+}
+
+.card-small .card-img-container {
+  height: 100px; /* Altura de la imagen */
+}
+
+.card-small .card-img-top {
+  height: 100%; /* Ajusta la imagen al 100% de la altura del contenedor */
+  object-fit: cover; /* Ajusta el tamaño de la imagen para cubrir el contenedor */
+}
+
+.card-small .card-body {
+  padding: 10px; /* Espaciado interno reducido para el cuerpo de la tarjeta */
+}
+
+@media (min-width: 820px) and (max-width: 1180px) {
+  /* Estilos para iPad Air */
+  .btn {
+    width: 50px;
+  }
+}

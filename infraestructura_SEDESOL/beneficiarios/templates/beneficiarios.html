@@ -3,8 +3,43 @@
 
 {% block head %}
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/beneficiarios.css' %}">
+    <link rel="stylesheet" href="{%static '/css/Sidebar.css'%}">
+    <style>
+        html,
+        body,
+        .container-fluid {
+          height: 100%;
+        }
+      
+        .row {
+          display: flex;
+          height: 100%;
+        }
+      
+        .col-md-2.sidebar-container {
+          overflow-y: auto;
+        }
+      
+        .col-md-10 {
+          overflow-y: auto;
+        }
+        body {
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          margin: 0;
+        }
+      
+        .content-container {
+          flex: 1;
+        }
+      
+        footer {
+          flex-shrink: 0;
+        }
+      </style>
 {% endblock head %}
+
     
 
 {% block titulo %}
@@ -12,55 +47,115 @@
 {% endblock titulo %}
 
 {% block contenido %}
-{% if status %}
-    <p>{{ status }}</p>
-{% endif %}
-    <div class="container">
-        <h1>Beneficiarios de calentadores solares</h1>
-        <div class="btn-div">
-            <a href="{% url 'registrar_beneficiario' %}" class="btn"><i class="fa fa-plus" aria-hidden="true"></i> Registrar Beneficiario</a>
+<div class="content-container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-2 sidebar-container">
+          <div id="sidenavAccordion" class="sb-sidenav accordion sb-sidenav-dark">
+            <div class="sb-sidenav-menu align-items-start">
+              <div class="nav">
+                <div>
+              <div class="sb-sidenav-menu-heading"></div>
+              <a class="nav-link active d-flex justify-content-center" href="{% url 'registrar_beneficiario' %}">
+                <div class="sb-nav-link-icon"></div><button class="btn"><i class="fa fa-plus-circle"
+                    style="padding-right: 5px;"></i>Registrar beneficiario</button>
+              </a>
+              <div>
+                <div class="sb-sidenav-menu-heading align-content-center">
+                    <b><p class="text-white">Filtros</p></b>
+                  </div>
+                  <form method = "POST">
+                    {% csrf_token %}
+                    
+                    <div class="nav-link collapsed custom-link"  data-toggle="collapse" data-target="#collapseLayouts"
+                      aria-expanded="false" aria-controls="collapseLayouts">
+                      <span>Municipio <p>{{form.nombre_filtroformulario}}</p></span>
+                    </div>
+                    <div class="nav-link collapsed custom-link"  data-toggle="collapse" data-target="#collapseLayouts"
+                      aria-expanded="false" aria-controls="collapseLayouts">
+                      <span>Nombres o apellidos <p>{{form.nombre_filtroformulario}}</p></span>
+                    </div>
+                    <div class="nav-link collapsed custom-link"  data-toggle="collapse" data-target="#collapseLayouts"
+                      aria-expanded="false" aria-controls="collapseLayouts">
+                      <span>Nombres o apellidos <p>{{form.nombre_filtroformulario}}</p></span>
+                    </div>
+                    <div class="nav-link collapsed custom-link"  data-toggle="collapse" data-target="#collapseLayouts"
+                      aria-expanded="false" aria-controls="collapseLayouts">
+                      <span>Folio MIDS <p>{{form.nombre_filtroformulario}}</p></span>
+                    </div>
+                    <div class="nav-link collapsed custom-link"  data-toggle="collapse" data-target="#collapseLayouts"
+                      aria-expanded="false" aria-controls="collapseLayouts">
+                      <button class="btn"><i class="fa"
+                        style="padding-right: 5px;" type="submit"></i>Filtrar</button>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Folio MIDS</th>
-                    <th>Nombre</th>
-                    <th>Municipio</th>
-                    <th class="mobile-hidden">Localidad</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for beneficiario in beneficiarios %}
-                    <tr>
-                        <td>{{beneficiario.folio_mids}}</td>
-                        <td>{{ beneficiario }}</td>
-                        <td>{{ beneficiario.municipio }}</td>
-                        <td class="mobile-hidden">{{ beneficiario.localidad }}</td>
-                        <td><a href="{% url 'detalle_beneficiario' beneficiario.id %}"><i class="fa fa-eye" aria-hidden="true" ></i></a></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <div class="pagination"  style="padding: 10px 10px;">
-            <span class="step-links">
-                {% if beneficiarios.has_previous %}
-                    <a href="?page={{ beneficiarios.previous_page_number }}" style="color: #a71e1c;">
-                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                    </a>
-                {% endif %}
-        
-                <span class="current">
-                    Página {{ beneficiarios.number }} de {{ beneficiarios.paginator.num_pages }}.
-                </span>
-        
-                {% if beneficiarios.has_next %}
-                    <a href="?page={{ beneficiarios.next_page_number }}" style="color: #a71e1c;">
-                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                    </a>
-                {% endif %}
-            </span>
+        <div class="sb-sidenav-footer">
+          <div class="small"><span style="font-family: Montserrat, sans-serif;">Usuario: {{user}}</span>
+          </div>
         </div>
-        
+      </div>
     </div>
+    <div class="col-md-10"> 
+        <div class="card text-dark bg-light shadow p-3 bg-light" style="font-family: Montserrat;">
+            <div class="card-header" style="background-color: #A71E1C; color: white;"><b>Listado de beneficiarios</b></div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <div class="alert alert-success align-content-end" id="success-message" data-auto-dismiss="5000">
+                        {{ message }}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Folio MIDS</th>
+                                    <th>Nombre</th>
+                                    <th>Municipio</th>
+                                    <th class="mobile-hidden">Localidad</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for beneficiario in beneficiarios %}
+                                    <tr>
+                                        <td>{{beneficiario.folio_mids}}</td>
+                                        <td>{{ beneficiario }}</td>
+                                        <td>{{ beneficiario.municipio }}</td>
+                                        <td class="mobile-hidden">{{ beneficiario.localidad }}</td>
+                                        <td><a href="{% url 'detalle_beneficiario' beneficiario.id %}"><i class="fa fa-eye" aria-hidden="true" ></i></a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination"  style="padding: 10px 10px;">
+                        <span class="step-links">
+                            {% if beneficiarios.has_previous %}
+                                <a href="?page={{ beneficiarios.previous_page_number }}" style="color: #000;">
+                                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                </a>
+                            {% endif %}
+                    
+                            <span class="current" style="color: #000;">
+                                Página {{ beneficiarios.number }} de {{ beneficiarios.paginator.num_pages }}.
+                            </span>
+                    
+                            {% if beneficiarios.has_next %}
+                                <a href="?page={{ beneficiarios.next_page_number }}" style="color: #000;">
+                                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                </a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
 {% endblock contenido %}
