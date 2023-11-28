@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/completar_obra.css' %}">
+{% endblock head %}
+    
+
+{% block titulo %}
+    Completar Obra Pública
+{% endblock titulo %}
+
+{% block contenido %}
+
+<h2>Completar Obra Pública</h2>
+
+<form id="uploadForm" action="{% url 'completar_obra_publica' obra_id=obra.id %}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+    {% csrf_token %}
+    
+    <!-- Proceso -->
+    <h3>Proceso</h3>
+    <label for="imageInputProceso" class="custom-file-label" id="customFileLabelProceso">Seleccione imágenes (mínimo 3, máximo 6)</label>
+    <input type="file" id="imageInputProceso" class="custom-file-input" name="images_proceso[]" accept="image/*" multiple required>
+    <br>
+
+    <!-- Completada -->
+    <h3>Completada</h3>
+    <label for="imageInputCompletada" class="custom-file-label" id="customFileLabelCompletada">Seleccione imágenes (mínimo 3, máximo 6)</label>
+    <input type="file" id="imageInputCompletada" class="custom-file-input" name="images_completada[]" accept="image/*" multiple required>
+    <br>
+
+    <!-- Botón de subir imágenes -->
+    <button type="submit" id="uploadButton">Guardar</button>
+</form>
+
+{% endblock contenido %}
+
+{% block scripts %}
+    <script>
+        function validateForm() {
+            const inputProceso = document.getElementById('imageInputProceso');
+            const filesProceso = inputProceso.files;
+    
+            if (filesProceso.length < 3 || filesProceso.length > 6) {
+                alert('Seleccione entre 3 y 6 imágenes para el proceso.');
+                return false;  // Evitar el envío del formulario si la validación falla
+            }
+
+            const inputTerminacion = document.getElementById('imageInputTerminacion');
+            const filesTerminacion = inputTerminacion.files;
+    
+            if (filesTerminacion.length < 3 || filesTerminacion.length > 6) {
+                alert('Seleccione entre 3 y 6 imágenes para la terminación.');
+                return false;  // Evitar el envío del formulario si la validación falla
+            }
+    
+            return true;  // Permitir el envío del formulario si la validación es exitosa
+        }
+    </script>
+{% endblock scripts %}
+

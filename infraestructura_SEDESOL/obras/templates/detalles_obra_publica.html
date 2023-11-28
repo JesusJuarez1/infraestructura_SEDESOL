@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/detalle_beneficiario.css' %}">
+{% endblock head %}
+    
+
+{% block titulo %}
+    Obra Pública
+{% endblock titulo %}
+
+{% block contenido %}
+    <div class="container">
+        <h1>Detalles de la obra pública</h1>
+        <p><strong>Folio MIDS:</strong> {{ obra.folio_mids }}</p>
+        <p><strong>Nombre de la obra:</strong> {{ obra.nombre }}</p>
+        <p><strong>Descripción:</strong> {{ obra.descripcion }}</p>
+        <p><strong>Municipio:</strong> {{ obra.municipio }}</p>
+        <p><strong>Localidad:</strong> {{ obra.localidad }}</p>
+        
+        <a href="{% url 'completar_obra_publica' obra_id=obra.id %}" class="btn">Completar Obra Pública</a>
+    </div>
+{% endblock contenido %}

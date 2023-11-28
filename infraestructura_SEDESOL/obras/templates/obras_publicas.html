@@ -43,7 +43,7 @@
     
 
 {% block titulo %}
-    Lista Beneficiarios
+    Lista de Obras Públicas
 {% endblock titulo %}
 
 {% block contenido %}
@@ -56,9 +56,9 @@
               <div class="nav">
                 <div>
               <div class="sb-sidenav-menu-heading"></div>
-              <a class="nav-link active d-flex justify-content-center" href="{% url 'registrar_beneficiario' %}">
+              <a class="nav-link active d-flex justify-content-center" href="{% url 'registrar_obra_publica' %}">
                 <div class="sb-nav-link-icon"></div><button class="btn"><i class="fa fa-plus-circle"
-                    style="padding-right: 5px;"></i>Registrar beneficiario</button>
+                    style="padding-right: 5px;"></i>Registrar Obra Pública</button>
               </a>
               <div>
                 <div class="sb-sidenav-menu-heading align-content-center">
@@ -73,11 +73,7 @@
                     </div>
                     <div class="nav-link collapsed custom-link"  data-toggle="collapse" data-target="#collapseLayouts"
                       aria-expanded="false" aria-controls="collapseLayouts">
-                      <span>Nombres o apellidos <p>{{form.nombre_filtroformulario}}</p></span>
-                    </div>
-                    <div class="nav-link collapsed custom-link"  data-toggle="collapse" data-target="#collapseLayouts"
-                      aria-expanded="false" aria-controls="collapseLayouts">
-                      <span>Nombres o apellidos <p>{{form.nombre_filtroformulario}}</p></span>
+                      <span>Nombre <p>{{form.nombre_filtroformulario}}</p></span>
                     </div>
                     <div class="nav-link collapsed custom-link"  data-toggle="collapse" data-target="#collapseLayouts"
                       aria-expanded="false" aria-controls="collapseLayouts">
@@ -101,7 +97,7 @@
     </div>
     <div class="col-md-10"> 
         <div class="card text-dark bg-light shadow p-3 bg-light" style="font-family: Montserrat;">
-            <div class="card-header" style="background-color: #A71E1C; color: white;"><b>Listado de beneficiarios</b></div>
+            <div class="card-header" style="background-color: #A71E1C; color: white;"><b>Listado de Obras Públicas</b></div>
                 <div class="card-body">
                     {% for message in messages %}
                         {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
@@ -116,19 +112,21 @@
                                 <tr>
                                     <th>Folio MIDS</th>
                                     <th>Nombre</th>
+                                    <th class="mobile-hidden">Descripción</th>
                                     <th>Municipio</th>
                                     <th class="mobile-hidden">Localidad</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for beneficiario in beneficiarios %}
+                                {% for obra in obras %}
                                     <tr>
-                                        <td>{{beneficiario.folio_mids}}</td>
-                                        <td>{{ beneficiario }}</td>
-                                        <td>{{ beneficiario.municipio }}</td>
-                                        <td class="mobile-hidden">{{ beneficiario.localidad }}</td>
-                                        <td><a href="{% url 'detalles_beneficiario' beneficiario.id %}"><i class="fa fa-eye" aria-hidden="true" ></i></a></td>
+                                        <td>{{obra.folio_mids}}</td>
+                                        <td>{{ obra.nombre }}</td>
+                                        <td class="mobile-hidden">{{ obra.descripcion }}</td>
+                                        <td>{{ obra.municipio }}</td>
+                                        <td class="mobile-hidden">{{ obra.localidad }}</td>
+                                        <td><a href="{% url 'detalles_obra_publica' obra.id %}"><i class="fa fa-eye" aria-hidden="true" ></i></a></td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
@@ -136,17 +134,17 @@
                     </div>
                     <div class="pagination"  style="padding: 10px 10px;">
                         <span class="step-links">
-                            {% if beneficiarios.has_previous %}
-                                <a href="?page={{ beneficiarios.previous_page_number }}" style="color: #000;">
+                            {% if obras.has_previous %}
+                                <a href="?page={{ obras.previous_page_number }}" style="color: #000;">
                                     <i class="fa fa-chevron-left" aria-hidden="true"></i>
                                 </a>
                             {% endif %}
                     
                             <span class="current" style="color: #000;">
-                                Página {{ beneficiarios.number }} de {{ beneficiarios.paginator.num_pages }}.
+                                Página {{ obras.number }} de {{ obras.paginator.num_pages }}.
                             </span>
                     
-                            {% if beneficiarios.has_next %}
+                            {% if obras.has_next %}
                                 <a href="?page={{ beneficiarios.next_page_number }}" style="color: #000;">
                                     <i class="fa fa-chevron-right" aria-hidden="true"></i>
                                 </a>
