@@ -46,4 +46,4 @@ def completar_obra_publica(request, obra_id):
 
 def detalles_obra_publica(request, obra_id):
     obra_publica = ObraPublica.objects.get(pk=obra_id)
-    return render(request, 'detalles_obra_publica.html', {'obra_publica': obra_publica})
+    return render(request, 'detalles_obra_publica.html', {'obra': obra_publica})

@@ -85,7 +85,7 @@ def upload_to_directory_obras(instance, filename):
     return os.path.join('obras', subfolder, current_date, filename)
 
 class EvidenciasObrasPublicas(models.Model):
-    beneficiario = models.ForeignKey(ObraPublica, on_delete=models.CASCADE)
+    obra = models.ForeignKey(ObraPublica, on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to=upload_to_directory_obras)
     es_proceso = models.BooleanField(default=True)
 
