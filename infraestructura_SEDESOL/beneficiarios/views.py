@@ -46,4 +46,6 @@ def completar_obra(request, beneficiario_id):
 
 def detalles_beneficiario(request, beneficiario_id):
     beneficiario = BeneficiarioCalentador.objects.get(pk=beneficiario_id)
-    return render(request, 'detalle_beneficiario.html', {'beneficiario': beneficiario})
+    imagenes = EvidenciasCalentadores.objects.filter(beneficiario=beneficiario_id)
+    print(imagenes)
+    return render(request, 'detalle_beneficiario.html', {'beneficiario': beneficiario, 'imagenes': imagenes})
