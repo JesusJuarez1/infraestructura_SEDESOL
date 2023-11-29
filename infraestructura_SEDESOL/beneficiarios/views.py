@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 import os
 from django.conf import settings
+from django.contrib import messages
 
 def registrar_beneficiario_calentador(request):
     if request.method == 'POST':
@@ -16,6 +17,27 @@ def registrar_beneficiario_calentador(request):
         form = BeneficiarioCalentadorForm()
 
     return render(request, 'beneficiario_calentador.html', {'form': form})
+
+def editar_beneficiario_calentador(request, beneficiario_id):
+    beneficiario = BeneficiarioCalentador.objects.get(id=beneficiario_id)
+    if request.method == 'POST':
+        form = BeneficiarioCalentadorForm(request.POST, instance=beneficiario)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'El beneficiario ha sido editado exitosamente.')
+            return redirect('beneficiarios')
+        else:
+            messages.error(request, 'Por favor, corrija los errores en el formulario.')
+    else:
+        form = BeneficiarioCalentadorForm(instance=beneficiario)
+    
+    return render(request, 'editar_beneficiario_calentador.html', {'form': form})
+
+def eliminar_beneficiario_calentador(request, beneficiario_id):
+    beneficiario = BeneficiarioCalentador.objects.get(id=beneficiario_id)
+    beneficiario.delete()
+    messages.success(request, 'El beneficiario ha sido eliminado exitosamente.')
+    return redirect('beneficiarios')
 
 def lista_beneficiarios(request):
     beneficiarios = BeneficiarioCalentador.objects.order_by('id')

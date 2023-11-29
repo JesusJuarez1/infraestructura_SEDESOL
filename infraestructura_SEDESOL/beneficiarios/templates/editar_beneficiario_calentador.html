@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {% load static %}
+{% endblock head %}
+
+{% block titulo %}
+    Editar Beneficiario
+{% endblock titulo %}
+
+{% block contenido %}
+<div class="card text-dark bg-light shadow p-3 bg-light" style="font-family: Montserrat;">
+    <div class="card-header" style="background-color: #A71E1C; color: white;"><b>Edita un beneficiario</b>
+    </div>
+    <div class="card-body">
+        {% for message in messages %} <!-- SE ENCOLAN ERRORES, POR SI HUBO ALGÚN FALLO -->
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <div class="alert alert-danger" id="error-message" data-auto-dismiss="5000">
+            {{ message }}
+        </div>
+        {% endif %}
+
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <div class="alert alert-success" id="success-message" data-auto-dismiss="5000">
+            {{ message }}
+        </div>
+        {% endif %}
+    {% endfor %}
+
+        <p class="card-text">
+            <form method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <span data-toggle="tooltip" title="Folio MID del beneficiario">
+                        <div class="form-group">
+                            <label>Folio MIDS: </label> <i class="fa fa-info-circle" style="pointer-events: none; color: #A71E1C;"
+                                type="button"></i>
+                                {% if form.folio_mids.errors %} <!-- PARA MOSTRAR ERRORES EN CASO DE QUE UN CAMPO TENGA. -->
+                                <div class="alert alert-danger" id="error-message">
+                                    {{ form.folio_mids.errors }}
+                                </div>
+                            {% endif %}
+                            {{ form.folio_mids }}
+                            <small id="obligatorioID" class="form-text text-muted">Campo obligatorio</small>
+                        </div>
+                    </span>
+                    <br>
+                    <span data-toggle="tooltip" title="Nombre o nombres del beneficiario.">
+                        <div class="form-group">
+                            <label>Nombre(s): </label> <i class="fa fa-info-circle" style="pointer-events: none; color: #A71E1C;"
+                                type="button"></i>
+                                {% if form.nombres.errors %}
+                                <div class="alert alert-danger" id="error-message">
+                                    {{ form.nombres.errors }}
+                                </div>
+                            {% endif %}
+                            {{ form.nombres }}
+                            <small id="obligatorioID" class="form-text text-muted">Campo obligatorio</small>
+                        </div>
+                    </span>
+                    <br>
+                    <span data-toggle="tooltip" title="Apellido paterno del beneficiario">
+                        <div class="form-group">
+                            <label>Apellido paterno: </label> <i class="fa fa-info-circle" style="pointer-events: none; color: #A71E1C;"
+                                type="button"></i>
+                                {% if form.apellido_paterno.errors %}
+                                <div class="alert alert-danger" id="error-message">
+                                    {{ form.apellido_paterno.errors }}
+                                </div>
+                            {% endif %}
+                            {{ form.apellido_paterno }}
+                            <small id="obligatorioID" class="form-text text-muted">Campo obligatorio</small>
+                        </div>
+                    </span>
+                    <br>
+                    <span data-toggle="tooltip" title="Apellido materno del beneficiario">
+                        <div class="form-group">
+                            <label>Apellido paterno: </label> <i class="fa fa-info-circle" style="pointer-events: none; color: #A71E1C;"
+                                type="button"></i>
+                                {% if form.apellido_materno.errors %}
+                                <div class="alert alert-danger" id="error-message">
+                                    {{ form.apellido_materno.errors }}
+                                </div>
+                            {% endif %}
+                            {{ form.apellido_materno }}
+                        </div>
+                    </span>
+                    <br>
+                    <span data-toggle="tooltip" title="Municipio del beneficiario">
+                        <div class="form-group">
+                            <label>Municipio: </label> <i class="fa fa-info-circle" style="pointer-events: none; color: #A71E1C;"
+                                type="button"></i>
+                                {% if form.municipio.errors %}
+                                <div class="alert alert-danger" id="error-message">
+                                    {{ form.municipio.errors }}
+                                </div>
+                            {% endif %}
+                            {{ form.municipio }}
+                        </div>
+                    </span>
+                    <br>
+                    <span data-toggle="tooltip" title="Localidad del beneficiario">
+                        <div class="form-group">
+                            <label>Localidad: </label> <i class="fa fa-info-circle" style="pointer-events: none; color: #A71E1C;"
+                                type="button"></i>
+                                {% if form.localidad.errors %}
+                                <div class="alert alert-danger" id="error-message">
+                                    {{ form.localidad.errors }}
+                                </div>
+                            {% endif %}
+                            {{ form.localidad }}
+                        </div>
+                    </span>
+                    <br>
+                    <button id="guardar-button" type="submit" class="btn"
+                        style="margin: 16px; background-color: #A71E1C; border-radius: 10px; color: white;">
+                        Editar
+                    </button>
+            </form>
+        </p>
+    </div>
+</div>
+{% endblock contenido %}
