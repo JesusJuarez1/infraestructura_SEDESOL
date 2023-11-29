@@ -20,26 +20,28 @@
               <div class="nav">
                 <div>
                 <div class="sb-sidenav-menu-heading"></div>
-                <a class="nav-link active d-flex justify-content-center" href="#">
+                <a class="nav-link active d-flex justify-content-center" href="{% url 'obras_publicas' %}">
                   <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-eye"
                       style="padding-right: 5px;"></i>Listado de Obras</button>
                   
                 </a>
                 <hr>
                 {% comment %} {% if user.is_superuser %} {% endcomment %}
-                <a class="nav-link active d-flex justify-content-center" href="#">
+                <a class="nav-link active d-flex justify-content-center" href="{% url 'editar_obra' obra_id=obra.id %}">
                   <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-pen-square"
                       style="padding-right: 5px;"></i>Editar</button>
                   
                 </a>
-                <a class="nav-link active d-flex justify-content-center" href="#">
+                <a class="nav-link active d-flex justify-content-center" href="{% url 'eliminar_obra' obra_id=obra.id %}">
                   <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-trash"
                       style="padding-right: 5px;"></i>Eliminar</button>
                 </a>
-                <a class="nav-link active d-flex justify-content-center" href="{% url 'completar_obra_publica' obra_id=obra.id %}">
-                    <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-camera"
-                        style="padding-right: 5px;"></i>Subir Evidencia</button>
-                </a>
+                {% comment %} {% if imagenes.exists %} {% endcomment %}
+                  <a class="nav-link active d-flex justify-content-center" href="{% url 'completar_obra_publica' obra_id=obra.id %}">
+                      <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-camera"
+                          style="padding-right: 5px;"></i>Subir Evidencia</button>
+                  </a>
+                {% comment %} {% endif %} {% endcomment %}
                 {% comment %} {% endif %} {% endcomment %}
               </div>
             </div>
@@ -102,6 +104,9 @@
                         <span class="sr-only">Next</span>
                         </a>
                     </div>
+                  </div>
+                  {% else %}
+                  <div><b>Aún no se sube la evidencia correspondiente</b></div>
                 {% endif %}
             </div><!-- / column -->
             {% comment %} {% endif %} {% endcomment %}

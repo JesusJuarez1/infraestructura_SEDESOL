@@ -122,9 +122,9 @@
                                 {% for obra in obras %}
                                     <tr>
                                         <td>{{obra.folio_mids}}</td>
-                                        <td>{{ obra.nombre }}</td>
+                                        <td>{{ obra.nombre_obra }}</td>
                                         <td class="mobile-hidden">{{ obra.descripcion }}</td>
-                                        <td>{{ obra.municipio }}</td>
+                                        <td>{{ obra.get_municipio_display }}</td>
                                         <td class="mobile-hidden">{{ obra.localidad }}</td>
                                         <td><a href="{% url 'detalles_obra_publica' obra.id %}"><i class="fa fa-eye" aria-hidden="true" ></i></a></td>
                                     </tr>

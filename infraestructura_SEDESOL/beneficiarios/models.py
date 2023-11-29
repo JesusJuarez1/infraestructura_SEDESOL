@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 
 MUNICIPIOS = [
+    ('', '------'),
     ('1', 'Apozol'),
     ('2', 'Apulco'),
     ('3', 'Atolinga'),

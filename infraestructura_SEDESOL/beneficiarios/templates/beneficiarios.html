@@ -92,7 +92,7 @@
                                     <tr>
                                         <td>{{beneficiario.folio_mids}}</td>
                                         <td>{{ beneficiario }}</td>
-                                        <td>{{ beneficiario.municipio }}</td>
+                                        <td>{{ beneficiario.get_municipio_display }}</td>
                                         <td class="mobile-hidden">{{ beneficiario.localidad }}</td>
                                         <td><a href="{% url 'detalles_beneficiario' beneficiario.id %}"><i class="fa fa-eye" aria-hidden="true" ></i></a></td>
                                     </tr>

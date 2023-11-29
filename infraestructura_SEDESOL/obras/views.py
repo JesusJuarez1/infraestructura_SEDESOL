@@ -2,9 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import ObraPublicaForm
 from .models import ObraPublica, EvidenciasObrasPublicas
 from django.core.paginator import Paginator
-from django.http import JsonResponse
-import os
-from django.conf import settings
+from django.contrib import messages
 
 def registrar_obra_publica(request):
     if request.method == 'POST':
@@ -16,6 +14,30 @@ def registrar_obra_publica(request):
         form = ObraPublicaForm()
 
     return render(request, 'registrar_obra.html', {'form': form})
+
+
+def editar_obra_publica(request, obra_id):
+    obra = ObraPublica.objects.get(id=obra_id)
+    if request.method == 'POST':
+        form = ObraPublicaForm(request.POST, instance=obra)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'La obra pública ha sido editada exitosamente.')
+            return redirect('obras_publicas')
+        else:
+            messages.error(request, 'Por favor, corrija los errores en el formulario.')
+    else:
+        form = ObraPublicaForm(instance=obra)
+    
+    return render(request, 'editar_obra_publica.html', {'form': form})
+
+
+def eliminar_obra(request, obra_id):
+    obra = ObraPublica.objects.get(id=obra_id)
+    obra.delete()
+    messages.success(request, 'La obra pública ha sido eliminada exitosamente.')
+    return redirect('obras_publicas')
+    
 
 def lista_obras_publicas(request):
     obras_publicas = ObraPublica.objects.order_by('id')
@@ -43,6 +65,7 @@ def completar_obra_publica(request, obra_id):
         return redirect('obras_publicas')
     
     return render(request, 'completar_obra_publica.html', {'obra': obra})
+
 
 def detalles_obra_publica(request, obra_id):
     obra_publica = ObraPublica.objects.get(pk=obra_id)

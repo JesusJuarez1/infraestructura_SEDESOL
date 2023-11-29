@@ -20,7 +20,7 @@
               <div class="nav">
                 <div>
                 <div class="sb-sidenav-menu-heading"></div>
-                <a class="nav-link active d-flex justify-content-center" href="#">
+                <a class="nav-link active d-flex justify-content-center" href="{% url 'beneficiarios' %}">
                   <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-eye"
                       style="padding-right: 5px;"></i>Listado de Beneficiarios</button>
                   
@@ -35,10 +35,12 @@
                   <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-trash"
                       style="padding-right: 5px;"></i>Eliminar</button>
                 </a>
-                <a class="nav-link active d-flex justify-content-center" href="{% url 'completar_obra' beneficiario_id=beneficiario.id %}">
-                    <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-camera"
-                        style="padding-right: 5px;"></i>Subir Evidencia</button>
-                </a>
+                {% comment %} {% if imagenes.exists %} {% endcomment %}
+                  <a class="nav-link active d-flex justify-content-center" href="{% url 'completar_obra' beneficiario_id=beneficiario.id %}">
+                      <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-camera"
+                          style="padding-right: 5px;"></i>Subir Evidencia</button>
+                  </a>
+                {% comment %} {% endif %} {% endcomment %}
                 {% comment %} {% endif %} {% endcomment %}
               </div>
             </div>
@@ -95,7 +97,7 @@
                             <div class="carousel-item">
                                 <img class="d-block w-100" style="height: 450px; object-fit: contain;" src="{{ imagen.imagen.url }}" alt="First slide">
                                 <div class="carousel-caption d-none d-md-block">
-                                    Obra en terminada
+                                    Obra terminada
                                 </div>
                             </div>
                             {% endif %}
@@ -110,7 +112,9 @@
                         <span class="sr-only">Next</span>
                         </a>
                     </div>
-                {% endif %}
+                  {% else %}
+                  <div><b>Aún no se sube la evidencia correspondiente</b></div>
+                  {% endif %}
             </div><!-- / column -->
             {% comment %} {% endif %} {% endcomment %}
         </div>
