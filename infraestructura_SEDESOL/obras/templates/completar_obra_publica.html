@@ -11,50 +11,116 @@
 {% endblock titulo %}
 
 {% block contenido %}
+<div class="container mt-5">
+    <div class="col-md-35"> 
+        <div class="card text-dark bg-light shadow p-3 bg-light" style="font-family: Montserrat;">
+            <div class="card-header" style="background-color: #A71E1C; color: white;"><b>Subir evidencia </b></div>
+                <div class="card-body mt-3">
 
-<h2>Completar Obra Pública</h2>
+                    <form id="uploadForm" action="{% url 'completar_obra_publica' obra_id=obra.id %}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+                        {% csrf_token %}
+                        
+                        <div class="row mt-3">
+                            <!-- Proceso -->
+                            <div class="col-md-6">
+                                <h4>Proceso de la obra</h4>
+                                <div class="mb-3">
+                                    <label for="imageInputProceso" class="form-label" id="customFileLabelProceso">Seleccione imágenes (mínimo 3, máximo 6)</label>
+                                    <input type="file" id="imageInputProceso" class="form-control" name="images_proceso[]" accept="image/*" multiple required onchange="previewImages(this.files, 'previewProceso', 'imageInputProceso')">
+                                </div>
+                                <div id="previewProceso" class="image-preview mt-3"></div>
+                            </div>
 
-<form id="uploadForm" action="{% url 'completar_obra_publica' obra_id=obra.id %}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
-    {% csrf_token %}
-    
-    <!-- Proceso -->
-    <h3>Proceso</h3>
-    <label for="imageInputProceso" class="custom-file-label" id="customFileLabelProceso">Seleccione imágenes (mínimo 3, máximo 6)</label>
-    <input type="file" id="imageInputProceso" class="custom-file-input" name="images_proceso[]" accept="image/*" multiple required>
-    <br>
+                        <!-- Completada -->
+                        <div class="col-md-6">
+                            <h4>Obra completada</h3>
+                            <div class="mb-3">
+                                <label for="imageInputCompletada" class="form-label" id="customFileLabelCompletada">Seleccione imágenes (mínimo 3, máximo 6)</label>
+                                <input type="file" id="imageInputCompletada" class="form-control" name="images_completada[]" accept="image/*" multiple required onchange="previewImages(this.files, 'previewCompletada', 'imageInputCompletada')">
+                            </div>
+                            <div id="previewCompletada" class="image-preview mt-3"></div>
+                        </div>
+                    </div>
 
-    <!-- Completada -->
-    <h3>Completada</h3>
-    <label for="imageInputCompletada" class="custom-file-label" id="customFileLabelCompletada">Seleccione imágenes (mínimo 3, máximo 6)</label>
-    <input type="file" id="imageInputCompletada" class="custom-file-input" name="images_completada[]" accept="image/*" multiple required>
-    <br>
-
-    <!-- Botón de subir imágenes -->
-    <button type="submit" id="uploadButton">Guardar</button>
-</form>
+                        <!-- Botón de subir imágenes -->
+                        <button type="submit" id="uploadButton" class="btn btn-primary mt-3">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
 
 {% endblock contenido %}
 
 {% block scripts %}
+    <!-- Agregar los scripts de Bootstrap y Popper.js -->
     <script>
         function validateForm() {
             const inputProceso = document.getElementById('imageInputProceso');
             const filesProceso = inputProceso.files;
-    
+
+            const inputCompletada = document.getElementById('imageInputCompletada');
+            const filesCompletada = inputCompletada.files;
+
             if (filesProceso.length < 3 || filesProceso.length > 6) {
                 alert('Seleccione entre 3 y 6 imágenes para el proceso.');
                 return false;  // Evitar el envío del formulario si la validación falla
             }
 
-            const inputTerminacion = document.getElementById('imageInputTerminacion');
-            const filesTerminacion = inputTerminacion.files;
-    
-            if (filesTerminacion.length < 3 || filesTerminacion.length > 6) {
-                alert('Seleccione entre 3 y 6 imágenes para la terminación.');
+            if (filesCompletada.length < 3 || filesCompletada.length > 6) {
+                alert('Seleccione entre 3 y 6 imágenes para el proceso.');
                 return false;  // Evitar el envío del formulario si la validación falla
             }
-    
+
             return true;  // Permitir el envío del formulario si la validación es exitosa
+        }
+
+        function previewImages(files, previewElementId) {
+            const previewElement = document.getElementById(previewElementId);
+        
+            // Limpiar el contenedor
+            previewElement.innerHTML = '';
+        
+            // Crear una sola fila para todas las imágenes
+            const nuevaFila = document.createElement('div');
+            nuevaFila.classList.add('row');
+        
+            // Mostrar las nuevas imágenes
+            for (const file of files) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // Crear una nueva columna para cada imagen y nombre
+                    const nuevaColumna = document.createElement('div');
+                    nuevaColumna.classList.add('col-md-4', 'mb-3');
+        
+                    // Crear el contenedor para la imagen y el párrafo
+                    const contenedor = document.createElement('div');
+                    contenedor.classList.add('d-inline-block'); // Mostrar las imágenes y los párrafos en línea
+        
+                    // Crear la imagen y agregarla al contenedor
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.width = '100%';
+                    img.style.marginBottom = '5px';
+                    contenedor.appendChild(img);
+        
+                    // Crear el párrafo con el nombre de la imagen y agregarlo al contenedor
+                    const nameParagraph = document.createElement('p');
+                    nameParagraph.textContent = file.name;
+                    nameParagraph.classList.add('d-inline-block', 'mb-0', 'ms-2'); // Alineación del nombre
+                    contenedor.appendChild(nameParagraph);
+        
+                    // Agregar el contenedor a la columna
+                    nuevaColumna.appendChild(contenedor);
+        
+                    // Agregar la columna a la fila
+                    nuevaFila.appendChild(nuevaColumna);
+                };
+                reader.readAsDataURL(file);
+            }
+        
+            // Agregar la fila al contenedor
+            previewElement.appendChild(nuevaFila);
         }
     </script>
 {% endblock scripts %}
