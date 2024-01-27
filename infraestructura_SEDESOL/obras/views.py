@@ -3,7 +3,9 @@ from .forms import ObraPublicaForm
 from .models import ObraPublica, EvidenciasObrasPublicas
 from django.core.paginator import Paginator
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def registrar_obra_publica(request):
     if request.method == 'POST':
         form = ObraPublicaForm(request.POST)
@@ -15,7 +17,7 @@ def registrar_obra_publica(request):
 
     return render(request, 'registrar_obra.html', {'form': form})
 
-
+@login_required
 def editar_obra_publica(request, obra_id):
     obra = ObraPublica.objects.get(id=obra_id)
     if request.method == 'POST':
@@ -31,14 +33,14 @@ def editar_obra_publica(request, obra_id):
     
     return render(request, 'editar_obra_publica.html', {'form': form})
 
-
+@login_required
 def eliminar_obra(request, obra_id):
     obra = ObraPublica.objects.get(id=obra_id)
     obra.delete()
     messages.success(request, 'La obra pública ha sido eliminada exitosamente.')
     return redirect('obras_publicas')
     
-
+@login_required
 def lista_obras_publicas(request):
     obras_publicas = ObraPublica.objects.order_by('id')
     paginator = Paginator(obras_publicas, 6)
@@ -48,7 +50,7 @@ def lista_obras_publicas(request):
     
     return render(request, 'obras_publicas.html', {'obras': comments_page, 'status': status})
 
-
+@login_required
 def completar_obra_publica(request, obra_id):
     obra = ObraPublica.objects.get(pk=obra_id)
     if request.method == 'POST':
@@ -66,7 +68,7 @@ def completar_obra_publica(request, obra_id):
     
     return render(request, 'completar_obra_publica.html', {'obra': obra})
 
-
+@login_required
 def detalles_obra_publica(request, obra_id):
     obra_publica = ObraPublica.objects.get(pk=obra_id)
     imagenes = EvidenciasObrasPublicas.objects.filter(obra=obra_id)

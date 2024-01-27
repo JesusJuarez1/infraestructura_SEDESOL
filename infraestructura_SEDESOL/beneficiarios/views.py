@@ -6,7 +6,9 @@ from django.http import JsonResponse
 import os
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def registrar_beneficiario_calentador(request):
     if request.method == 'POST':
         form = BeneficiarioCalentadorForm(request.POST)
@@ -18,6 +20,7 @@ def registrar_beneficiario_calentador(request):
 
     return render(request, 'beneficiario_calentador.html', {'form': form})
 
+@login_required
 def editar_beneficiario_calentador(request, beneficiario_id):
     beneficiario = BeneficiarioCalentador.objects.get(id=beneficiario_id)
     if request.method == 'POST':
@@ -33,12 +36,14 @@ def editar_beneficiario_calentador(request, beneficiario_id):
     
     return render(request, 'editar_beneficiario_calentador.html', {'form': form})
 
+@login_required
 def eliminar_beneficiario_calentador(request, beneficiario_id):
     beneficiario = BeneficiarioCalentador.objects.get(id=beneficiario_id)
     beneficiario.delete()
     messages.success(request, 'El beneficiario ha sido eliminado exitosamente.')
     return redirect('beneficiarios')
 
+@login_required
 def lista_beneficiarios(request):
     beneficiarios = BeneficiarioCalentador.objects.order_by('id')
     paginator = Paginator(beneficiarios, 6)
@@ -48,7 +53,7 @@ def lista_beneficiarios(request):
     
     return render(request, 'beneficiarios.html', {'beneficiarios': comments_page, 'status': status})
 
-
+@login_required
 def completar_obra(request, beneficiario_id):
     beneficiario = BeneficiarioCalentador.objects.get(pk=beneficiario_id)
     if request.method == 'POST':
@@ -66,6 +71,7 @@ def completar_obra(request, beneficiario_id):
     
     return render(request, 'completar_obra.html', {'beneficiario': beneficiario})
 
+@login_required
 def detalles_beneficiario(request, beneficiario_id):
     beneficiario = BeneficiarioCalentador.objects.get(pk=beneficiario_id)
     imagenes = EvidenciasCalentadores.objects.filter(beneficiario=beneficiario_id)
