@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{%static '/css/Sidebar.css'%}">
+{% endblock head %}
+
+    
+
+{% block titulo %}
+    Editar perfil
+{% endblock titulo %}
+
+<!-- This jquery library is importnat. With this you can do the below "getJSON" jQuery  -->
+{% block contenido %}
+
+<body>
+    <div class="content-container">
+    <div class="container-fluid">
+    <div class="card text-dark bg-light shadow p-3 bg-light" style="font-family: Montserrat;">
+        <div class="card-header" style="background-color: #A71E1C; color: white;"><b>Editar perfil</b>
+        </div>
+        <div class="card-body">
+            {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger" id="error-message">
+            {{ message }}
+            <button class="close bg-danger border-0 " onclick="closeMessage('error-message')">&times;</button>
+            </div>
+            {% else %}
+            <div class="alert alert-success align-content-end" id="success-message" data-auto-dismiss="5000">
+                {{ message }}
+            </div>
+            {% endif %}
+            {% endfor %}
+            <h6 class="card-title">Mi Información</h6>
+
+
+            <p class="card-text">
+                <form method="POST" class='needs-validation' novalidate>
+                    {{error}}
+                    {{mensaje}}
+                    {% csrf_token %}
+                    <div class="col-md-5">
+                        {{ form.as_p }}
+                    </div>
+                    <button id="guardar-button" type="submit" class="btn"
+                            style="margin: 16px; background-color: #A71E1C; border-radius: 14px; color: white;">
+                            Actualizar Información
+                    </button>
+                </form>
+                
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+
+{% endblock %}

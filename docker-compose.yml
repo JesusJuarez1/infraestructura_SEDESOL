@@ -1,0 +1,33 @@
+version: '3.3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: infraestructura_sedesol
+    #restart: always
+    depends_on:
+      - db-infraestructura_sedesol
+    ports:
+      - 8000:8000
+    volumes: 
+      - ./infraestructura_sedesol/:/app
+
+  db-infraestructura_sedesol:
+    image: mariadb
+    container_name: infraestructura_sedesol-db
+    #restart: always
+    environment:
+      MYSQL_DATABASE: infraestructura_sedesol
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin1234
+      MYSQL_ROOT_PASSWORD: admin1234
+    volumes:
+      - db-infraestructura_sedesol:/var/lib/mysql
+    ports:
+      - 3320:3306
+
+volumes:
+  db:    
+  db-infraestructura_sedesol:    

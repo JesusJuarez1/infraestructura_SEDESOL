@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {% load static %}
+{% endblock head %}
+
+{% block titulo %}
+    Cambiar Contraseña
+{% endblock titulo %}
+
+{% block contenido %}
+
+
+<body>
+    <div class="content-container">
+    <div class="container-fluid">
+    <div class="card text-dark bg-light shadow p-3 bg-light" style="font-family: Montserrat;">
+        <div class="card-header" style="background-color: #A71E1C; color: white;"><b>Cambiar mi Contraseña</b>
+        </div>
+        <div class="card-body">
+            <h6 class="card-title">Mi Información</h6>
+
+            <p class="card-text">
+                <form method="POST">
+                    {% csrf_token %}
+                    <span data-toggle="tooltip" title="Ingrese la contraseña actual ">
+                        <div class="form-group">
+                            <label>Contraseña Actual</label> <i class="fa fa-info-circle" style="pointer-events: none; color: #A71E1C;"
+                                type="button"></i>
+                            {% if form.old_password.errors %}
+                                <div class="alert alert-danger" id="error-message">
+                                    {{ form.old_password.errors }}
+                                </div>
+                            {% endif %}
+                            {{form.old_password}}
+                        </div>
+                    </span>
+                    <br>
+                    <span data-toggle="tooltip" title=" Ingrese la nueva contraseña que usará en el sistema">
+                        <div class="form-group">
+                            <label>Nueva Contraseña: </label> <i class="fa fa-info-circle" style="pointer-events: none; color: #A71E1C;"
+                                type="button"></i>
+                            {% if form.new_password1.errors %}
+                                <div class="alert alert-danger" id="error-message">
+                                    {{ form.new_password1.errors }}
+                                </div>
+                            {% endif %}
+                            {{form.new_password1}}
+                        </div>
+                    </span>
+                    <br>
+                    <span data-toggle="tooltip" title="Confirme la contraseña que usará en el sistema">
+                        <div class="form-group">
+                            <label>Conirmación de Contraseña: </label> <i class="fa fa-info-circle" style="pointer-events: none; color: #A71E1C;"
+                                type="button"></i>
+                            {% if form.new_password2.errors %}
+                                <div class="alert alert-danger" id="error-message">
+                                    {{ form.new_password2.errors }}
+                                </div>
+                            {% endif %}
+                            {{form.new_password2}}
+                        </div>
+                    </span>
+                    <button id="guardar-button" type="submit" class="btn"
+                            style="margin: 16px; background-color: #A71E1C; border-radius: 14px; color: white;">
+                            Actualizar Contraseña
+                    </button>
+                </form>
+                
+            </p>
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+{% endblock %}

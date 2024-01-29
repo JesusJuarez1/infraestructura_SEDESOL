@@ -19,7 +19,7 @@ function autoDismissMessage(messageId, showDuration, fadeDuration) {
           clearInterval(fadeEffect);
           message.style.display = 'none';
         }
-      }, fadeDuration / 70);
+      }, fadeDuration / 800);
     }, showDuration);
   }
 }
@@ -30,7 +30,7 @@ var successMessage = document.getElementById('success-message');
 
 if (errorMessage || successMessage) {
   var autoDismissDuration = errorMessage ? errorMessage.getAttribute('data-auto-dismiss') : successMessage.getAttribute('data-auto-dismiss');
-  var showDuration = 3000; // Duración en milisegundos antes de comenzar el desvanecimiento (2 segundos)
+  var showDuration = 8000; // Duración en milisegundos antes de comenzar el desvanecimiento (2 segundos)
   var fadeDuration = parseInt(autoDismissDuration) - showDuration; // Duración en milisegundos del desvanecimiento
   
   if (autoDismissDuration) {

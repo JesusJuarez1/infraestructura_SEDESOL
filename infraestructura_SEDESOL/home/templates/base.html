@@ -76,17 +76,16 @@
                             <span class="nav-item">Usuarios</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-white border-0 rounded-0 rounded-bottom m-0">
-                            {% comment %} {% if request.user.is_authenticated %} {% endcomment %}
+                            {% if request.user.is_authenticated %}
                             <div class="dropdown-header">
                                 <span class="username">Usuario: request.user.username</span><br>
-                                {% comment %} <span class="last-login">Activo desde: {{ request.user.last_login|timezone:"America/Mexico_City"|date:"j F Y, G:i" }}</span> {% endcomment %}
                             </div>
-                            {% comment %} {% endif %} {% endcomment %}
-                            <a href="#" class="dropdown-item">Editar perfil</a>
-                            <a href="#}" class="dropdown-item">Cambiar contraseña</a>
-                            {% comment %} {% if user.is_superuser %} {% endcomment %}
-                            <a href="#" class="dropdown-item">Gestión de Usuarios</a>
-                            {% comment %} {% endif %} {% endcomment %}
+                            {% endif %}
+                            <a href="{% url "perfil" %}" class="dropdown-item">Editar perfil</a>
+                            <a href="{% url "cambiar_password" %}" class="dropdown-item">Cambiar contraseña</a>
+                            {% if user.is_superuser %}
+                            <a href="{% url "usuarios" %}" class="dropdown-item">Gestión de Usuarios</a>
+                            {% endif %}
 
 
                             <a href="{% url "logout" %}" class="dropdown-item">Salir</a>

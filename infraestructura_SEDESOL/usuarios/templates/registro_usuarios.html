@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {% load static %}
+{% endblock head %}
+
+{% block titulo %}
+    Registrar Beneficiario
+{% endblock titulo %}
+
+{% block contenido %}
+
+<body>
+    <div class="card text-dark bg-light shadow p-3 bg-light" style="font-family: Montserrat;">
+        <div class="card-header" style="background-color: #A71E1C; color: white;"><b>Registra un Usuario</b>
+        </div>
+        <div class="card-body">
+            <h6 class="card-title">Información del Usuario</h6>
+
+
+            <p class="card-text">
+                <form method="POST" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+
+                    <div class="form-group">
+                        
+                        <span data-toggle="tooltip" title="Ingrese el nombre del usuario">
+                            <div class="col-md-4">
+                                <label for="username" class="form-label">Nombre de Usuario: </label> <i class="fa fa-info-circle" style="pointer-events: none; color: #A71E1C;"
+                                type="button"></i> 
+                                <br>
+                                {% if error %}
+                                    <div class="alert alert-danger" id="error-message">
+                                        {{ error }}
+                                    </div>
+                                {% endif %}
+                                <input type="text" name="username" class="form-control" id="username" required>
+                            </div>
+                        </span>
+                        <span data-toggle="tooltip" title="Contraseña generada automáticamente, favor de guardarla para pasarla al usuario encargado.">
+                            <div class="col-md-4">
+                                <label class="form-label">Contraseña generada automáticamente: </label> <i class="fa fa-info-circle" style="pointer-events: none; color: #A71E1C;"
+                                type="button"></i>
+                                <input type="text" class="form-control" id="password-temporal" value="{{ password_temporal }}" readonly>
+                            </div>
+                        </span>
+                        <br>
+                        
+                        <button id="guardar-button" type="submit" class="btn"
+                            style="margin: 16px; background-color: #A71E1C; border-radius: 10px; color: white;">
+                            Guardar
+                        </button>
+
+                </form>
+            </p>
+        </div>
+    </div>
+</body>
+
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" href="{%static '/css/Sidebar.css'%}">
+{% endblock head %}
+
+    
+
+{% block titulo %}
+    Lista Beneficiarios
+{% endblock titulo %}
+
+<!-- This jquery library is importnat. With this you can do the below "getJSON" jQuery  -->
+{% block contenido %}
+<body>
+  <div class="content-container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-2 sidebar-container sb-sidenav-collapse-arrow">
+          <div id="sidenavAccordion" class="sb-sidenav accordion sb-sidenav-dark h-100">
+            <div class="sb-sidenav-menu">
+              <div class="nav">
+                <div>
+              <div class="sb-sidenav-menu-heading">
+              </div>
+              <a class="nav-link active d-flex justify-content-center" href="{% url 'registrar_usuario' %}">
+                <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-plus-circle"
+                    style="padding-right: 5px;"></i>Registrar nuevo Usuario</button>
+              </a>
+            </div>
+            <hr>
+            <div>
+              
+            <form method = "POST">
+              {% csrf_token %}
+            </form>
+            </div>
+          </div>
+        </div>
+        <div class="sb-sidenav-footer">
+          <div class="small"><span style="font-family: Montserrat, sans-serif;">Usuario : {{user}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10">
+        <div class="card text-dark bg-light shadow p-3 bg-light" style="font-family: Montserrat;">
+          <div class="card-header" style="background-color: #A71E1C; color: white;"><b>Usuarios registrados: {{ eventos.count }}</b>   
+            
+          </div>
+
+          {% for message in messages %}
+              {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <div class="alert alert-danger" id="error-message">
+                  {{ message }}
+                  <button class="close bg-danger border-0 " onclick="closeMessage('error-message')">&times;</button>
+                </div>
+              {% else %}
+                <div class="alert alert-success align-content-end" id="success-message" data-auto-dismiss="30000">
+                  {{ message }}
+                </div>
+              {% endif %}
+            {% endfor %}
+          <div class="card-body col-12">
+            <div class="album py-3 bg-light">
+              <div class="row">
+                <div class="container-fluid">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Nombre de usuario</th>
+                          <th>Nombre</th>
+                          <th>Correo</th>
+                          <th>
+                            Acciones
+                          </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          {% for user in users %}
+                            <tr>
+                              <td>{{ user.username }}</td>
+                              <td> {{ user.first_name}} {{ user.last_name }} </td>
+                              <td> {{ user.email }} </td>
+                              <td>
+                                {% if user.is_superuser == False %}
+                                <div class="btn-group">
+                                  <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#confirmarEliminar{{ user.id }}">
+                                    <i class="fa fa-trash"></i> Eliminar
+                                  </a>
+                                  <a href="{% url 'restablecer_usuario' user.id %}" class="btn btn-sm btn-primary" >
+                                    <i class="fa fa-edit"></i> Restablecer
+                                  </a>
+                                  {% endif %}
+                                </div>
+                              </td>
+                              <!-- Modal de confirmación de eliminación -->
+                              <div class="modal fade" id="confirmarEliminar{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="confirmarEliminarLabel{{ user.id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="confirmarEliminarLabel{{ user.id }}">Confirmar eliminación</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p>¿Estás seguro de que deseas eliminar este usuario?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                      <a href="{% url 'eliminar_usuario' user.id %}" class="btn btn-primary">Eliminar</a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                          {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+  </div>
+</body>
+{% endblock %}
