@@ -56,10 +56,12 @@
               <div class="nav">
                 <div>
               <div class="sb-sidenav-menu-heading"></div>
-              <a class="nav-link active d-flex justify-content-center" href="{% url 'registrar_obra_publica' %}">
-                <div class="sb-nav-link-icon"></div><button class="btn"><i class="fa fa-plus-circle"
-                    style="padding-right: 5px;"></i>Registrar Obra Pública</button>
-              </a>
+              {% if user.is_superuser %} <!-- Solo cuando se es administrador se puede hacer uso del boton -->
+                <a class="nav-link active d-flex justify-content-center" href="{% url 'registrar_obra_publica' %}">
+                  <div class="sb-nav-link-icon"></div><button class="btn"><i class="fa fa-plus-circle"
+                      style="padding-right: 5px;"></i>Registrar Obra Pública</button>
+                </a>
+              {% endif %}
               <div>
                 <div class="sb-sidenav-menu-heading align-content-center">
                     <b><p class="text-white">Filtros</p></b>
@@ -111,6 +113,9 @@
                             <thead>
                                 <tr>
                                     <th>Folio MIDS</th>
+                                    {% if user.is_superuser %}
+                                      <th>Designado</th>
+                                    {% endif %}
                                     <th>Nombre</th>
                                     <th class="mobile-hidden">Descripción</th>
                                     <th>Municipio</th>
@@ -122,6 +127,9 @@
                                 {% for obra in obras %}
                                     <tr>
                                         <td>{{obra.folio_mids}}</td>
+                                        {% if user.is_superuser %}
+                                          <td>{{ obra.designado }}</td>
+                                        {% endif %}
                                         <td>{{ obra.nombre_obra }}</td>
                                         <td class="mobile-hidden">{{ obra.descripcion }}</td>
                                         <td>{{ obra.get_municipio_display }}</td>

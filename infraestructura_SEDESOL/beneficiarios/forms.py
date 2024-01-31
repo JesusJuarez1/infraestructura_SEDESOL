@@ -1,7 +1,10 @@
 from django import forms
+from django.contrib.auth.models import User
 from .models import BeneficiarioCalentador, MUNICIPIOS
 
+
 class BeneficiarioCalentadorForm(forms.ModelForm):
+
     class Meta:
         model = BeneficiarioCalentador
         fields = '__all__'
@@ -14,4 +17,5 @@ class BeneficiarioCalentadorForm(forms.ModelForm):
             'localidad': forms.TextInput(attrs={'class':'form-control','placeholder':'Localidad'}),
         }
     
-    municipio = forms.ChoiceField(label="Municipio", choices=MUNICIPIOS, widget=forms.Select(attrs={"class": "form-control"}))
+    designado = forms.ModelChoiceField(queryset=User.objects.all(), label="Designado", widget=forms.Select(attrs={"class": "form-control", "placeholder":"Designado"}))
+    municipio = forms.ChoiceField(label="Municipio", choices=MUNICIPIOS, widget=forms.Select(attrs={"class": "form-control", "placeholder":"Municipio"}))

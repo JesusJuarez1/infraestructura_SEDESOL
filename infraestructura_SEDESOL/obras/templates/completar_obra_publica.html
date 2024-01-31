@@ -28,7 +28,20 @@
                                     <label for="imageInputProceso" class="form-label" id="customFileLabelProceso">Seleccione imágenes (mínimo 3, máximo 6)</label>
                                     <input type="file" id="imageInputProceso" class="form-control" name="images_proceso[]" accept="image/*" multiple required onchange="previewImages(this.files, 'previewProceso', 'imageInputProceso')">
                                 </div>
-                                <div id="previewProceso" class="image-preview mt-3"></div>
+                                <div id="previewProceso" class="image-preview mt-3">
+                                    <div class="row">
+                                        <!-- Mostrar imágenes existentes -->
+                                        {% for image in proceso %}
+                                            <div class="col-md-4 mb-3">
+                                                <div class="d-inline-block">
+                                                    <img src="{{ image.imagen.url }}" style="width: 100%; margin-bottom: 5px;">
+                                                    <p class="d-inline-block mb-0 ms-2">{{ image.imagen.name }}</p>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                
                             </div>
 
                         <!-- Completada -->
@@ -38,7 +51,19 @@
                                 <label for="imageInputCompletada" class="form-label" id="customFileLabelCompletada">Seleccione imágenes (mínimo 3, máximo 6)</label>
                                 <input type="file" id="imageInputCompletada" class="form-control" name="images_completada[]" accept="image/*" multiple required onchange="previewImages(this.files, 'previewCompletada', 'imageInputCompletada')">
                             </div>
-                            <div id="previewCompletada" class="image-preview mt-3"></div>
+                            <div id="previewCompletada" class="image-preview mt-3">
+                                <div class="row">
+                                    <!-- Mostrar imágenes existentes -->
+                                    {% for image in completada %}
+                                        <div class="col-md-4 mb-3">
+                                            <div class="d-inline-block">
+                                                <img src="{{ image.imagen.url }}" style="width: 100%; margin-bottom: 5px;">
+                                                <p class="d-inline-block mb-0 ms-2">{{ image.imagen.name }}</p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
                     </div>
 

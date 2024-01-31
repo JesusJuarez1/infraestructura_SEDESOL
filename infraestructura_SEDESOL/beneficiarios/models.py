@@ -1,6 +1,7 @@
 import os
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 MUNICIPIOS = [
     ('', '------'),
@@ -67,6 +68,7 @@ MUNICIPIOS = [
 class BeneficiarioCalentador(models.Model):
     id = models.AutoField(primary_key=True)
     folio_mids = models.CharField(max_length=255)
+    designado = models.ForeignKey(User, on_delete=models.CASCADE)
     apellido_paterno = models.CharField(max_length=100)
     apellido_materno = models.CharField(max_length=100, blank=True, null=True)
     nombres = models.CharField(max_length=100)

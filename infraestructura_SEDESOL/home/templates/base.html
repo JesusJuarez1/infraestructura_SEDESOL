@@ -78,7 +78,7 @@
                         <div class="dropdown-menu dropdown-menu-end bg-white border-0 rounded-0 rounded-bottom m-0">
                             {% if request.user.is_authenticated %}
                             <div class="dropdown-header">
-                                <span class="username">Usuario: request.user.username</span><br>
+                                <span class="username">{{user}}</span><br>
                             </div>
                             {% endif %}
                             <a href="{% url "perfil" %}" class="dropdown-item">Editar perfil</a>

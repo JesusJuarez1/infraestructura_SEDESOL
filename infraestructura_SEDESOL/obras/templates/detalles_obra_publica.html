@@ -26,23 +26,21 @@
                   
                 </a>
                 <hr>
-                {% comment %} {% if user.is_superuser %} {% endcomment %}
-                <a class="nav-link active d-flex justify-content-center" href="{% url 'editar_obra' obra_id=obra.id %}">
-                  <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-pen-square"
-                      style="padding-right: 5px;"></i>Editar</button>
-                  
-                </a>
-                <a class="nav-link active d-flex justify-content-center" href="{% url 'eliminar_obra' obra_id=obra.id %}">
-                  <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-trash"
-                      style="padding-right: 5px;"></i>Eliminar</button>
-                </a>
-                {% comment %} {% if imagenes.exists %} {% endcomment %}
+                {% if user.is_superuser %} <!-- Solo cuando se es administrador se puede hacer uso de los botones -->
+                  <a class="nav-link active d-flex justify-content-center" href="{% url 'editar_obra' obra_id=obra.id %}">
+                    <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-pen-square"
+                        style="padding-right: 5px;"></i>Editar</button>
+                    
+                  </a>
+                  <a class="nav-link active d-flex justify-content-center" href="{% url 'eliminar_obra' obra_id=obra.id %}">
+                    <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-trash"
+                        style="padding-right: 5px;"></i>Eliminar</button>
+                  </a>
+                {% endif %}
                   <a class="nav-link active d-flex justify-content-center" href="{% url 'completar_obra_publica' obra_id=obra.id %}">
                       <div class="sb-nav-link-icon"></div><button class="btn btn-fixed-width"><i class="fa fa-camera"
                           style="padding-right: 5px;"></i>Subir Evidencia</button>
                   </a>
-                {% comment %} {% endif %} {% endcomment %}
-                {% comment %} {% endif %} {% endcomment %}
               </div>
             </div>
           </div>
@@ -77,7 +75,6 @@
                 </div><!-- / project-info-box -->
                 <br>
             </div>
-            {% comment %} {% if casa.imagen %} {% endcomment %}
             <div class="col-md-5">
                 {% if imagenes.exists %}
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">

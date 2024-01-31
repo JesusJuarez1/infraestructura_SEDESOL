@@ -47,6 +47,20 @@
                         </div>
                     </span>
                     <br>
+                    <span data-toggle="tooltip" title="Designado a subir la evidencia">
+                        <div class="form-group">
+                            <label>Designado: </label> <i class="fa fa-info-circle" style="pointer-events: none; color: #A71E1C;"
+                                type="button"></i>
+                                {% if form.designado.errors %} <!-- PARA MOSTRAR ERRORES EN CASO DE QUE UN CAMPO TENGA. -->
+                                <div class="alert alert-danger" id="error-message">
+                                    {{ form.designado.errors }}
+                                </div>
+                            {% endif %}
+                            {{ form.designado }}
+                            <small id="obligatorioID" class="form-text text-muted">Campo obligatorio</small>
+                        </div>
+                    </span>
+                    <br>
                     <span data-toggle="tooltip" title="Nombre o nombres del beneficiario.">
                         <div class="form-group">
                             <label>Nombre(s): </label> <i class="fa fa-info-circle" style="pointer-events: none; color: #A71E1C;"

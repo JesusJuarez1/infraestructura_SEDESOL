@@ -1,5 +1,6 @@
 import os
 from django.db import models
+from django.contrib.auth.models import User
 from django.utils import timezone
 
 MUNICIPIOS = [
@@ -66,6 +67,7 @@ MUNICIPIOS = [
 
 class ObraPublica(models.Model):
     folio_mids = models.CharField(max_length=255)
+    designado = models.ForeignKey(User, on_delete=models.CASCADE)
     nombre_obra = models.CharField(max_length=150)
     descripcion = models.CharField(max_length=255)
     municipio = models.CharField('Municipio', max_length=2, choices=MUNICIPIOS)

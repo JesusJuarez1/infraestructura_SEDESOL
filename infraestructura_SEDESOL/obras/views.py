@@ -42,7 +42,16 @@ def eliminar_obra(request, obra_id):
     
 @login_required
 def lista_obras_publicas(request):
-    obras_publicas = ObraPublica.objects.order_by('id')
+    # Obtener el usuario actualmente autenticado
+    usuario = request.user
+
+    # Verificar si el usuario es un administrador
+    if usuario.is_superuser:
+        # Si es un administrador, mostrar todos las obras publicas
+        obras_publicas = ObraPublica.objects.order_by('id')
+    else:
+        # Si no es un administrador, mostrar solo las obras publicas donde él sea el designado
+        obras_publicas = ObraPublica.objects.filter(designado=usuario).order_by('id')
     paginator = Paginator(obras_publicas, 6)
     page_number = request.GET.get('page')
     comments_page = paginator.get_page(page_number)
@@ -53,20 +62,24 @@ def lista_obras_publicas(request):
 @login_required
 def completar_obra_publica(request, obra_id):
     obra = ObraPublica.objects.get(pk=obra_id)
-    if request.method == 'POST':
-        images_proceso = request.FILES.getlist('images_proceso[]')
-        images_completada = request.FILES.getlist('images_completada[]')
+    images_proceso = EvidenciasObrasPublicas.objects.filter(obra=obra, es_proceso=True)
+    images_completada = EvidenciasObrasPublicas.objects.filter(obra=obra, es_proceso=False)
 
-        for image in images_proceso:
+    if request.method == 'POST':
+        # Eliminar imágenes anteriores relacionadas con la obra
+        EvidenciasObrasPublicas.objects.filter(obra=obra).delete()
+
+        # Guardar nuevas imágenes
+        for image in request.FILES.getlist('images_proceso[]'):
             EvidenciasObrasPublicas.objects.create(obra=obra, imagen=image, es_proceso=True)
 
-        for image in images_completada:
+        for image in request.FILES.getlist('images_completada[]'):
             EvidenciasObrasPublicas.objects.create(obra=obra, imagen=image, es_proceso=False)
 
         request.session['status'] = 'Imágenes procesadas exitosamente.'
         return redirect('obras_publicas')
-    
-    return render(request, 'completar_obra_publica.html', {'obra': obra})
+    print(images_proceso)
+    return render(request, 'completar_obra_publica.html', {'obra': obra, 'proceso':images_proceso, 'completada': images_completada})
 
 @login_required
 def detalles_obra_publica(request, obra_id):

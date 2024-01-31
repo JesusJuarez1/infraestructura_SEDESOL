@@ -2,9 +2,6 @@ from django.shortcuts import render, redirect
 from .forms import BeneficiarioCalentadorForm
 from .models import BeneficiarioCalentador, EvidenciasCalentadores
 from django.core.paginator import Paginator
-from django.http import JsonResponse
-import os
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -45,7 +42,16 @@ def eliminar_beneficiario_calentador(request, beneficiario_id):
 
 @login_required
 def lista_beneficiarios(request):
-    beneficiarios = BeneficiarioCalentador.objects.order_by('id')
+    # Obtener el usuario actualmente autenticado
+    usuario = request.user
+
+    # Verificar si el usuario es un administrador
+    if usuario.is_superuser:
+        # Si es un administrador, mostrar todos los beneficiarios
+        beneficiarios = BeneficiarioCalentador.objects.order_by('id')
+    else:
+        # Si no es un administrador, mostrar solo los beneficiarios donde él sea el designado
+        beneficiarios = BeneficiarioCalentador.objects.filter(designado=usuario).order_by('id')
     paginator = Paginator(beneficiarios, 6)
     page_number = request.GET.get('page')
     comments_page = paginator.get_page(page_number)
@@ -75,5 +81,4 @@ def completar_obra(request, beneficiario_id):
 def detalles_beneficiario(request, beneficiario_id):
     beneficiario = BeneficiarioCalentador.objects.get(pk=beneficiario_id)
     imagenes = EvidenciasCalentadores.objects.filter(beneficiario=beneficiario_id)
-    print(imagenes)
     return render(request, 'detalle_beneficiario.html', {'beneficiario': beneficiario, 'imagenes': imagenes})

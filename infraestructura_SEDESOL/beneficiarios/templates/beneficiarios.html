@@ -22,10 +22,13 @@
               <div class="nav">
                 <div>
               <div class="sb-sidenav-menu-heading"></div>
-              <a class="nav-link active d-flex justify-content-center" href="{% url 'registrar_beneficiario' %}">
-                <div class="sb-nav-link-icon"></div><button class="btn"><i class="fa fa-plus-circle"
-                    style="padding-right: 5px;"></i>Registrar beneficiario</button>
-              </a>
+              
+              {% if user.is_superuser %} <!-- Solo cuando se es administrador se puede hacer uso del boton -->
+                <a class="nav-link active d-flex justify-content-center" href="{% url 'registrar_beneficiario' %}">
+                  <div class="sb-nav-link-icon"></div><button class="btn"><i class="fa fa-plus-circle"
+                      style="padding-right: 5px;"></i>Registrar beneficiario</button>
+                </a>
+              {% endif %}
               <div>
                 <div class="sb-sidenav-menu-heading align-content-center">
                     <b><p class="text-white">Filtros</p></b>
@@ -60,7 +63,7 @@
           </div>
         </div>
         <div class="sb-sidenav-footer">
-          <div class="small"><span style="font-family: Montserrat, sans-serif;">Usuario: {{user}}</span>
+          <div class="small"><span style="font-family: Montserrat, sans-serif;">Usuario: <b>{{user}}</b></span>
           </div>
         </div>
       </div>
@@ -81,6 +84,9 @@
                             <thead>
                                 <tr>
                                     <th>Folio MIDS</th>
+                                    {% if user.is_superuser %}
+                                      <th>Designado</th>
+                                    {% endif %}
                                     <th>Nombre</th>
                                     <th>Municipio</th>
                                     <th class="mobile-hidden">Localidad</th>
@@ -90,7 +96,10 @@
                             <tbody>
                                 {% for beneficiario in beneficiarios %}
                                     <tr>
-                                        <td>{{beneficiario.folio_mids}}</td>
+                                        <td>{{ beneficiario.folio_mids }}</td>
+                                        {% if user.is_superuser %}
+                                          <td>{{ beneficiario.designado }}</td>
+                                        {% endif %}
                                         <td>{{ beneficiario }}</td>
                                         <td>{{ beneficiario.get_municipio_display }}</td>
                                         <td class="mobile-hidden">{{ beneficiario.localidad }}</td>
