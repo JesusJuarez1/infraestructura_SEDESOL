@@ -27,9 +27,11 @@ def registrarUsuario(request):
             
             username = request.POST['username']
             password_temporal = request.session.get('password_temporal')
+            is_staff = 'es_administrador' in request.POST
             user = User.objects.create_user(
                 username=username,
                 password=password_temporal,
+                is_staff=is_staff
             )
             del request.session['password_temporal']
             messages.success(request, 'Usuario registrado correctamente.')
@@ -51,7 +53,7 @@ def registrarUsuario(request):
 
 @staff_member_required
 def lista_usuarios(request):
-    users = User.objects.all()
+    users = User.objects.all().order_by('-is_superuser', '-is_staff')
     return render(request, 'lista_usuarios.html', {'users': users})
 
 @staff_member_required

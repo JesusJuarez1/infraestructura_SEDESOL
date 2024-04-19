@@ -83,7 +83,7 @@
                             {% endif %}
                             <a href="{% url "perfil" %}" class="dropdown-item">Editar perfil</a>
                             <a href="{% url "cambiar_password" %}" class="dropdown-item">Cambiar contraseña</a>
-                            {% if user.is_superuser %}
+                            {% if user.is_superuser or user.is_staff %}
                             <a href="{% url "usuarios" %}" class="dropdown-item">Gestión de Usuarios</a>
                             {% endif %}
 

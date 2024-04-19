@@ -4,9 +4,10 @@ from .models import BeneficiarioCalentador, EvidenciasCalentadores
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
 
-@login_required
+@staff_member_required
 def registrar_beneficiario_calentador(request):
     if request.method == 'POST':
         form = BeneficiarioCalentadorForm(request.POST)
@@ -18,7 +19,7 @@ def registrar_beneficiario_calentador(request):
 
     return render(request, 'beneficiario_calentador.html', {'form': form})
 
-@login_required
+@staff_member_required
 def editar_beneficiario_calentador(request, beneficiario_id):
     beneficiario = BeneficiarioCalentador.objects.get(id=beneficiario_id)
     if request.method == 'POST':
@@ -34,7 +35,7 @@ def editar_beneficiario_calentador(request, beneficiario_id):
     
     return render(request, 'editar_beneficiario_calentador.html', {'form': form})
 
-@login_required
+@staff_member_required
 def eliminar_beneficiario_calentador(request, beneficiario_id):
     beneficiario = BeneficiarioCalentador.objects.get(id=beneficiario_id)
     beneficiario.delete()
