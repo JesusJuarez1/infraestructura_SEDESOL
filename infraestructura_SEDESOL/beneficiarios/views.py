@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from .forms import BeneficiarioCalentadorForm
+from .forms import BeneficiarioCalentadorForm, FiltroBeneficiarioForm
 from .models import BeneficiarioCalentador, EvidenciasCalentadores
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 @login_required
 def registrar_beneficiario_calentador(request):
@@ -42,22 +43,45 @@ def eliminar_beneficiario_calentador(request, beneficiario_id):
 
 @login_required
 def lista_beneficiarios(request):
+    form = FiltroBeneficiarioForm
     # Obtener el usuario actualmente autenticado
     usuario = request.user
-
     # Verificar si el usuario es un administrador
     if usuario.is_superuser:
         # Si es un administrador, mostrar todos los beneficiarios
         beneficiarios = BeneficiarioCalentador.objects.order_by('id')
     else:
-        # Si no es un administrador, mostrar solo los beneficiarios donde él sea el designado
+        # Si no es un administrador, mostrar solo los beneficiarios donde él sea designado
         beneficiarios = BeneficiarioCalentador.objects.filter(designado=usuario).order_by('id')
+    if request.method == 'POST':
+        form = FiltroBeneficiarioForm(request.POST)
+        municipio = request.POST.get('municipio', None)
+        nombre = request.POST.get('nombre', None)
+        localidad = request.POST.get('localidad', None)
+        folio_mids = request.POST.get('folio_mids', None)
+        if municipio:
+            beneficiarios = beneficiarios.filter(municipio=municipio)
+        if nombre:
+            beneficiarios = beneficiarios.filter(
+                Q(apellido_paterno__contains=nombre) |
+                Q(apellido_materno__contains=nombre) |
+                Q(nombres__contains=nombre)
+            )
+        if localidad:
+            beneficiarios = beneficiarios.filter(localidad__contains=localidad)
+        if folio_mids:
+            beneficiarios = beneficiarios.filter(folio_mids__contains=folio_mids)
     paginator = Paginator(beneficiarios, 6)
     page_number = request.GET.get('page')
     comments_page = paginator.get_page(page_number)
     status = request.session.pop('status', None)
+    context = {
+        "beneficiarios": comments_page,
+        "status": status,
+        "form": form
+    }
     
-    return render(request, 'beneficiarios.html', {'beneficiarios': comments_page, 'status': status})
+    return render(request, 'beneficiarios.html', context)
 
 @login_required
 def completar_obra(request, beneficiario_id):

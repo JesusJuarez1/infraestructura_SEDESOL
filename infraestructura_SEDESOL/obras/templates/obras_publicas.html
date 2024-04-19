@@ -68,18 +68,21 @@
                   </div>
                   <form method = "POST">
                     {% csrf_token %}
-                    
                     <div class="nav-link collapsed custom-link"  data-toggle="collapse" data-target="#collapseLayouts"
                       aria-expanded="false" aria-controls="collapseLayouts">
-                      <span>Municipio <p>{{form.nombre_filtroformulario}}</p></span>
+                      <span>Municipio<p>{{form.municipio}}</p></span>
                     </div>
                     <div class="nav-link collapsed custom-link"  data-toggle="collapse" data-target="#collapseLayouts"
                       aria-expanded="false" aria-controls="collapseLayouts">
-                      <span>Nombre <p>{{form.nombre_filtroformulario}}</p></span>
+                      <span>Localidad<p>{{form.localidad}}</p></span>
                     </div>
                     <div class="nav-link collapsed custom-link"  data-toggle="collapse" data-target="#collapseLayouts"
                       aria-expanded="false" aria-controls="collapseLayouts">
-                      <span>Folio MIDS <p>{{form.nombre_filtroformulario}}</p></span>
+                      <span>Nombre de la obra <p>{{form.nombre_obra}}</p></span>
+                    </div>
+                    <div class="nav-link collapsed custom-link"  data-toggle="collapse" data-target="#collapseLayouts"
+                      aria-expanded="false" aria-controls="collapseLayouts">
+                      <span>Folio MIDS <p>{{form.folio_mids}}</p></span>
                     </div>
                     <div class="nav-link collapsed custom-link"  data-toggle="collapse" data-target="#collapseLayouts"
                       aria-expanded="false" aria-controls="collapseLayouts">

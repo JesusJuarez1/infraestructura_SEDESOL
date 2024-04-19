@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import ObraPublicaForm
+from .forms import ObraPublicaForm, FiltroObraPublicaForm
 from .models import ObraPublica, EvidenciasObrasPublicas
 from django.core.paginator import Paginator
 from django.contrib import messages
@@ -42,22 +42,41 @@ def eliminar_obra(request, obra_id):
     
 @login_required
 def lista_obras_publicas(request):
+    form = FiltroObraPublicaForm()
     # Obtener el usuario actualmente autenticado
     usuario = request.user
-
     # Verificar si el usuario es un administrador
     if usuario.is_superuser:
         # Si es un administrador, mostrar todos las obras publicas
         obras_publicas = ObraPublica.objects.order_by('id')
     else:
-        # Si no es un administrador, mostrar solo las obras publicas donde él sea el designado
+        # Si no es un administrador, mostrar solo las obras publicas donde él sea designado
         obras_publicas = ObraPublica.objects.filter(designado=usuario).order_by('id')
+    if request.method == 'POST':
+        form = FiltroObraPublicaForm(request.POST)
+        municipio = request.POST.get('municipio', None)
+        nombre_obra = request.POST.get('nombre_obra', None)
+        localidad = request.POST.get('localidad', None)
+        folio_mids = request.POST.get('folio_mids', None)
+        if municipio:
+            obras_publicas = obras_publicas.filter(municipio=municipio)
+        if nombre_obra:
+            obras_publicas = obras_publicas.filter(nombre_obra__contains=nombre_obra)
+        if localidad:
+            obras_publicas = obras_publicas.filter(localidad__contains=localidad)
+        if folio_mids:
+            obras_publicas = obras_publicas.filter(folio_mids__contains=folio_mids)
     paginator = Paginator(obras_publicas, 6)
     page_number = request.GET.get('page')
     comments_page = paginator.get_page(page_number)
     status = request.session.pop('status', None)
-    
-    return render(request, 'obras_publicas.html', {'obras': comments_page, 'status': status})
+
+    context = {
+        "obras": comments_page,
+        "status": status,
+        "form": form
+    }
+    return render(request, 'obras_publicas.html', context)
 
 @login_required
 def completar_obra_publica(request, obra_id):

@@ -16,3 +16,27 @@ class ObraPublicaForm(forms.ModelForm):
     
     designado = forms.ModelChoiceField(queryset=User.objects.all(), label="Designado", widget=forms.Select(attrs={"class": "form-control","placeholder":"Designado"}))
     municipio = forms.ChoiceField(label="Municipio", choices=MUNICIPIOS, widget=forms.Select(attrs={"class": "form-control", "placeholder":"Municipio"}))
+
+class FiltroObraPublicaForm(forms.Form):
+    municipio = forms.ChoiceField(
+        required=False,
+        choices = tuple([(u'', "Todos")] + MUNICIPIOS),
+        widget = forms.Select(
+            attrs={'class': 'form-control'}
+        )
+    )
+    nombre_obra = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
+        required=False
+    )
+    localidad = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control', 'placeholder': 'Localidad'}),
+        required=False
+    )
+    folio_mids = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control', 'placeholder': 'Folio'}),
+        required=False
+    )
