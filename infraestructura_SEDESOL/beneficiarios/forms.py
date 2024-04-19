@@ -17,8 +17,23 @@ class BeneficiarioCalentadorForm(forms.ModelForm):
             'localidad': forms.TextInput(attrs={'class':'form-control','placeholder':'Localidad'}),
         }
     
-    designado = forms.ModelChoiceField(queryset=User.objects.all(), label="Designado", widget=forms.Select(attrs={"class": "form-control", "placeholder":"Designado"}))
-    municipio = forms.ChoiceField(label="Municipio", choices=MUNICIPIOS, widget=forms.Select(attrs={"class": "form-control", "placeholder":"Municipio"}))
+    designado = forms.ModelChoiceField(
+        queryset=User.objects.filter(
+            is_staff=False,
+            is_superuser=False,
+        ),
+        label="Designado",
+        widget=forms.Select(
+            attrs={"class": "form-control","placeholder":"Designado"}
+        )
+    )
+    municipio = forms.ChoiceField(
+        label="Municipio",
+        choices=MUNICIPIOS,
+        widget=forms.Select(
+            attrs={"class": "form-control", "placeholder":"Municipio"}
+        )
+    )
 
 class FiltroBeneficiarioForm(forms.Form):
     municipio = forms.ChoiceField(
