@@ -87,23 +87,33 @@ def lista_beneficiarios(request):
 @login_required
 def completar_obra(request, beneficiario_id):
     beneficiario = BeneficiarioCalentador.objects.get(pk=beneficiario_id)
+    images_proceso = EvidenciasCalentadores.objects.filter(beneficiario=beneficiario, es_proceso=True)
+    images_completada = EvidenciasCalentadores.objects.filter(beneficiario=beneficiario, es_proceso=False)
+
     if request.method == 'POST':
-        images_proceso = request.FILES.getlist('images_proceso[]')
-        images_completada = request.FILES.getlist('images_completada[]')
+        # Guardar nuevas imágenes
+        proceso = request.FILES.getlist('images_proceso[]')
+        completada = request.FILES.getlist('images_completada[]')
+        if len(proceso) != 0:
+            # Eliminar imágenes anteriores relacionadas
+            EvidenciasCalentadores.objects.filter(beneficiario=beneficiario, es_proceso=True).delete()
+            for image in proceso:
+                EvidenciasCalentadores.objects.create(beneficiario=beneficiario, imagen=image, es_proceso=True)
 
-        for image in images_proceso:
-            EvidenciasCalentadores.objects.create(beneficiario=beneficiario, imagen=image, es_proceso=True)
-
-        for image in images_completada:
-            EvidenciasCalentadores.objects.create(beneficiario=beneficiario, imagen=image, es_proceso=False)
+        if len(completada) != 0:
+            # Eliminar imágenes anteriores relacionadas
+            EvidenciasCalentadores.objects.filter(beneficiario=beneficiario, es_proceso=False).delete()
+            for image in completada:
+                EvidenciasCalentadores.objects.create(beneficiario=beneficiario, imagen=image, es_proceso=False)
 
         request.session['status'] = 'Imágenes procesadas exitosamente.'
         return redirect('beneficiarios')
     
-    return render(request, 'completar_obra.html', {'beneficiario': beneficiario})
+    return render(request, 'completar_obra.html', {'beneficiario': beneficiario, 'proceso':images_proceso, 'completada': images_completada})
 
 @login_required
 def detalles_beneficiario(request, beneficiario_id):
     beneficiario = BeneficiarioCalentador.objects.get(pk=beneficiario_id)
-    imagenes = EvidenciasCalentadores.objects.filter(beneficiario=beneficiario_id)
-    return render(request, 'detalle_beneficiario.html', {'beneficiario': beneficiario, 'imagenes': imagenes})
+    images_proceso = EvidenciasCalentadores.objects.filter(beneficiario=beneficiario, es_proceso=True)
+    images_completada = EvidenciasCalentadores.objects.filter(beneficiario=beneficiario, es_proceso=False)
+    return render(request, 'detalle_beneficiario.html', {'beneficiario': beneficiario, 'proceso': images_proceso, 'completado': images_completada})

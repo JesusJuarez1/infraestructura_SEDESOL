@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect
 from .forms import ObraPublicaForm, FiltroObraPublicaForm
 from .models import ObraPublica, EvidenciasObrasPublicas
@@ -86,23 +87,29 @@ def completar_obra_publica(request, obra_id):
     images_completada = EvidenciasObrasPublicas.objects.filter(obra=obra, es_proceso=False)
 
     if request.method == 'POST':
-        # Eliminar imágenes anteriores relacionadas con la obra
-        EvidenciasObrasPublicas.objects.filter(obra=obra).delete()
-
         # Guardar nuevas imágenes
-        for image in request.FILES.getlist('images_proceso[]'):
-            EvidenciasObrasPublicas.objects.create(obra=obra, imagen=image, es_proceso=True)
+        proceso = request.FILES.getlist('images_proceso[]')
+        completada = request.FILES.getlist('images_completada[]')
+        if len(proceso) != 0:
+            # Eliminar imágenes anteriores relacionadas con la obra
+            EvidenciasObrasPublicas.objects.filter(obra=obra, es_proceso=True).delete()
+            for image in proceso:
+                EvidenciasObrasPublicas.objects.create(obra=obra, imagen=image, es_proceso=True)
 
-        for image in request.FILES.getlist('images_completada[]'):
-            EvidenciasObrasPublicas.objects.create(obra=obra, imagen=image, es_proceso=False)
+        if len(completada) != 0:
+            # Eliminar imágenes anteriores relacionadas con la obra
+            EvidenciasObrasPublicas.objects.filter(obra=obra, es_proceso=False).delete()
+            for image in completada:
+                EvidenciasObrasPublicas.objects.create(obra=obra, imagen=image, es_proceso=False)
 
         request.session['status'] = 'Imágenes procesadas exitosamente.'
         return redirect('obras_publicas')
-    print(images_proceso)
     return render(request, 'completar_obra_publica.html', {'obra': obra, 'proceso':images_proceso, 'completada': images_completada})
 
 @login_required
 def detalles_obra_publica(request, obra_id):
     obra_publica = ObraPublica.objects.get(pk=obra_id)
+    images_proceso = EvidenciasObrasPublicas.objects.filter(obra=obra_publica, es_proceso=True)
+    images_completada = EvidenciasObrasPublicas.objects.filter(obra=obra_publica, es_proceso=False)
     imagenes = EvidenciasObrasPublicas.objects.filter(obra=obra_id)
-    return render(request, 'detalles_obra_publica.html', {'obra': obra_publica, 'imagenes': imagenes})
+    return render(request, 'detalles_obra_publica.html', {'obra': obra_publica, 'proceso':images_proceso, 'completado': images_completada})
