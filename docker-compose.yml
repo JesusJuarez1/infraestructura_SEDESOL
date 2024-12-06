@@ -5,29 +5,28 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    container_name: infraestructura_sedesol
-    #restart: always
-    depends_on:
-      - db-infraestructura_sedesol
-    ports:
-      - 8000:8000
-    volumes: 
-      - ./infraestructura_sedesol/:/app
-
-  db-infraestructura_sedesol:
-    image: mariadb
-    container_name: infraestructura_sedesol-db
-    #restart: always
-    environment:
-      MYSQL_DATABASE: infraestructura_sedesol
-      MYSQL_USER: root
-      MYSQL_PASSWORD: admin1234
-      MYSQL_ROOT_PASSWORD: admin1234
+    restart: always
     volumes:
-      - db-infraestructura_sedesol:/var/lib/mysql
+      - .:/app
     ports:
-      - 3320:3306
+      - "8000:8000"
+    env_file:
+      - .env  # Cargar las variables desde el archivo .env
+    depends_on:
+      - db
+
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}  # Variable tomada de .env
+      MYSQL_DATABASE: ${DB_NAME}               # Variable tomada de .env
+      MYSQL_USER: ${DB_USER}                   # Variable tomada de .env
+      MYSQL_PASSWORD: ${DB_PASSWORD}           # Variable tomada de .env
+    ports:
+      - "3320:3306"
+    volumes:
+      - db_data:/var/lib/mysql
 
 volumes:
-  db:    
-  db-infraestructura_sedesol:    
+  db_data:  

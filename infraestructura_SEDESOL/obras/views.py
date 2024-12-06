@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
+@login_required
 @staff_member_required
 def registrar_obra_publica(request):
     if request.method == 'POST':
@@ -19,6 +20,7 @@ def registrar_obra_publica(request):
 
     return render(request, 'registrar_obra.html', {'form': form})
 
+@login_required
 @staff_member_required
 def editar_obra_publica(request, obra_id):
     obra = ObraPublica.objects.get(id=obra_id)
@@ -35,6 +37,7 @@ def editar_obra_publica(request, obra_id):
     
     return render(request, 'editar_obra_publica.html', {'form': form})
 
+@login_required
 @staff_member_required
 def eliminar_obra(request, obra_id):
     obra = ObraPublica.objects.get(id=obra_id)

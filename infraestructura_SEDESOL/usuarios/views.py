@@ -11,6 +11,7 @@ import random
 import string
 from .forms import EditUserForm, MyPasswordChangeForm
 
+@login_required
 @staff_member_required
 def registrarUsuario(request):
 
@@ -51,11 +52,13 @@ def registrarUsuario(request):
             })
         
 
+@login_required
 @staff_member_required
 def lista_usuarios(request):
     users = User.objects.all().order_by('-is_superuser', '-is_staff')
     return render(request, 'lista_usuarios.html', {'users': users})
 
+@login_required
 @staff_member_required
 def restablecerUsuario(request, id):
     user = User.objects.get(id=id)
@@ -68,6 +71,7 @@ def restablecerUsuario(request, id):
     messages.success(request, 'Usuario restablecido correctamente. La nueva contraseña es: ' + password_temporal)
     return redirect('usuarios') 
 
+@login_required
 @staff_member_required
 def eliminarUsuario(request, id):
     User.objects.get(id=id).delete()
