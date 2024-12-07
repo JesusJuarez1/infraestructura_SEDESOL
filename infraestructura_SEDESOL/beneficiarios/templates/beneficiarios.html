@@ -23,7 +23,7 @@
                 <div>
               <div class="sb-sidenav-menu-heading"></div>
               
-              {% if user.is_superuser %} <!-- Solo cuando se es administrador se puede hacer uso del boton -->
+              {% if user.is_superuser or user.is_staff %} <!-- Solo cuando se es administrador se puede hacer uso del boton -->
                 <a class="nav-link active d-flex justify-content-center" href="{% url 'registrar_beneficiario' %}">
                   <div class="sb-nav-link-icon"></div><button class="btn"><i class="fa fa-plus-circle"
                       style="padding-right: 5px;"></i>Registrar beneficiario</button>
@@ -83,7 +83,7 @@
                             <thead>
                                 <tr>
                                     <th>Folio MIDS</th>
-                                    {% if user.is_superuser %}
+                                    {% if user.is_superuser or user.is_staff %}
                                       <th>Designado</th>
                                     {% endif %}
                                     <th>Nombre</th>
@@ -96,7 +96,7 @@
                                 {% for beneficiario in beneficiarios %}
                                     <tr>
                                         <td>{{ beneficiario.folio_mids }}</td>
-                                        {% if user.is_superuser %}
+                                        {% if user.is_superuser or user.is_staff %}
                                           <td>{{ beneficiario.designado }}</td>
                                         {% endif %}
                                         <td>{{ beneficiario }}</td>

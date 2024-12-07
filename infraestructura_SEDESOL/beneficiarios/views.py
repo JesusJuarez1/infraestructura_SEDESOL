@@ -51,7 +51,7 @@ def lista_beneficiarios(request):
     # Obtener el usuario actualmente autenticado
     usuario = request.user
     # Verificar si el usuario es un administrador
-    if usuario.is_superuser:
+    if usuario.is_superuser or usuario.is_staff:
         # Si es un administrador, mostrar todos los beneficiarios
         beneficiarios = BeneficiarioCalentador.objects.order_by('id')
     else:
