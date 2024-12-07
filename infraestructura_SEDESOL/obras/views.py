@@ -51,7 +51,7 @@ def lista_obras_publicas(request):
     # Obtener el usuario actualmente autenticado
     usuario = request.user
     # Verificar si el usuario es un administrador
-    if usuario.is_superuser:
+    if usuario.is_superuser or usuario.is_staff:
         # Si es un administrador, mostrar todos las obras publicas
         obras_publicas = ObraPublica.objects.order_by('id')
     else:

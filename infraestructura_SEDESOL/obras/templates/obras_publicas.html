@@ -56,7 +56,7 @@
               <div class="nav">
                 <div>
               <div class="sb-sidenav-menu-heading"></div>
-              {% if user.is_superuser %} <!-- Solo cuando se es administrador se puede hacer uso del boton -->
+              {% if user.is_superuser or user.is_staff %} <!-- Solo cuando se es administrador se puede hacer uso del boton -->
                 <a class="nav-link active d-flex justify-content-center" href="{% url 'registrar_obra_publica' %}">
                   <div class="sb-nav-link-icon"></div><button class="btn"><i class="fa fa-plus-circle"
                       style="padding-right: 5px;"></i>Registrar Obra Pública</button>
@@ -116,7 +116,7 @@
                             <thead>
                                 <tr>
                                     <th>Folio MIDS</th>
-                                    {% if user.is_superuser %}
+                                    {% if user.is_superuser or user.is_staff %}
                                       <th>Designado</th>
                                     {% endif %}
                                     <th>Nombre</th>
@@ -130,7 +130,7 @@
                                 {% for obra in obras %}
                                     <tr>
                                         <td>{{obra.folio_mids}}</td>
-                                        {% if user.is_superuser %}
+                                        {% if user.is_superuser or user.is_staff %}
                                           <td>{{ obra.designado }}</td>
                                         {% endif %}
                                         <td>{{ obra.nombre_obra }}</td>
